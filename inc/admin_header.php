@@ -34,13 +34,13 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'members.php'){echo 'active'; } ?>">
             <a class="nav-link" href="members.php">
               <i class="material-icons">group</i>
               <p>Members</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
             <a class="nav-link" href="packages.php">
               <i class="material-icons">bubble_chart</i>
               <p>Packages</p>
@@ -82,13 +82,13 @@
               <p>Maps</p>
             </a>
           </li>
-          <li class="nav-item active ">
+          <li class="nav-item">
             <a class="nav-link" href="./notifications.html">
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
           </li>
-          <li class="nav-item active ">
+          <li class="nav-item ">
             <a class="nav-link" href="?logout">
               <i class="material-icons">logout</i>
               <p>Logout</p>

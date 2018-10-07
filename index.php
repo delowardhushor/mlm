@@ -113,7 +113,7 @@
                         <button class="btn btn-primary btn-block" onclick="demo.showNotification('bottom','center')">Bottom Center</button>
                       </div>
                       <div class="col-md-4">
-                        <button class="btn btn-primary btn-block" onclick="demo.showNotification()">Bottom Right</button>
+                        <button class="btn btn-primary btn-block" onclick="demo.showNotification('info' , 'Hello')">Bottom Right</button>
                       </div>
                     </div>
                   </div>

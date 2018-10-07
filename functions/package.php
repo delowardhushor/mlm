@@ -24,6 +24,7 @@
 		
 		if($result){
 			header('Location:../packages.php');
+			echo "<script src='../assets/demo/demo.js'>demo.showNotification('info','Hello')</script>";
 		}else{
 			echo "<script>alert('Something Went Wrong')</script>";
 		}

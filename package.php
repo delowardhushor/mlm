@@ -20,7 +20,7 @@
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title"><?php echo $_GET['mode']; ?> Package</h4>
-                  <p class="card-category">Complete your profile</p>
+                  <!-- <p class="card-category">Complete your profile</p> -->
                 </div>
                 <div class="card-body">
                   <form action="./functions/package.php" method='POST'>
@@ -67,7 +67,7 @@
                     <?php
                       }
                     ?>
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="submit" class="btn btn-primary pull-right"><?php echo $mode; ?> Package</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

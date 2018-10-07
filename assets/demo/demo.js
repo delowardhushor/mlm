@@ -234,21 +234,20 @@ demo = {
     marker.setMap(map);
   },
 
-  showNotification: function(from, align) {
-    type = ['', 'info', 'danger', 'success', 'warning', 'rose', 'primary'];
+  showNotification: function(type, msg) {
 
     color = Math.floor((Math.random() * 6) + 1);
 
     $.notify({
       icon: "add_alert",
-      message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+      message: msg
 
     }, {
-      type: type[color],
+      type: type,
       timer: 3000,
       placement: {
-        from: from,
-        align: align
+        from: 'bottom',
+        align: 'right'
       }
     });
   }
