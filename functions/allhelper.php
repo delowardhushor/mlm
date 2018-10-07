@@ -7,5 +7,7 @@
 	$db= new database();
 	$format= new format();
 
+	session::chk_session();
+
 
 ?>
