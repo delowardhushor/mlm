@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $sql = "INSERT INTO mlm_members (name, parent_member)
 VALUES ('John', 'Doe')";
 
-for ($i=0; $i < 32 ; $i++) { 
+for ($i=0; $i < 1000 ; $i++) { 
 	$conn->query($sql);
 }
 
