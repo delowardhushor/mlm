@@ -1,5 +1,5 @@
-<?php include "./inc/head.php" ?>
-<?php include "./inc/admin_header.php" ?>
+<?php include "./inc/head.php"; ?>
+<?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -17,124 +17,38 @@
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          ID
-                        </th>
-                        <th>
                           Name
                         </th>
                         <th>
-                          Country
+                          Balance
                         </th>
                         <th>
-                          City
-                        </th>
-                        <th>
-                          Salary
+                          Action
                         </th>
                       </thead>
                       <tbody>
+                        <?php 
+                          $sql = "SELECT * FROM mlm_members";
+                          $result = $db->select($sql);
+                          if ($result && $result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                        ?>
                         <tr>
                           <td>
-                            1
-                          </td>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
+                            <?php echo $row['name']; ?>
                           </td>
                           <td class="text-primary">
-                            $36,738
+                            <?php echo $row['balance']; ?>
+                          </td>
+                          <td>
+                            <a href="member.php?mode=Update&id=<?php echo $row['id']; ?>" class="btn btn-primary "><i class="material-icons">border_color</i></a>
+                            <a href="member.php?mode=Add" class="btn btn-danger "><i class="material-icons">delete</i></a>
                           </td>
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                        <?php
+                            }
+                          }
+                        ?>
                       </tbody>
                     </table>
                   </div>

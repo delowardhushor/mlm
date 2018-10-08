@@ -1,5 +1,5 @@
-<?php include "./inc/head.php" ?>
-<?php include "./inc/admin_header.php" ?>
+<?php include "./inc/head.php"; ?>
+<?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">
           <div class="row">

@@ -1,8 +1,7 @@
 <?php include "./inc/head.php" ?>
 <?php
-
   $mode  = $_GET['mode'];
-
+  
   if($_GET['mode'] === 'Update' && is_numeric($_GET['id']) === true){
     $id = $_GET['id'];
     $sql = "SELECT * FROM mlm_packages WHERE id = '$id' LIMIT 1 ";
@@ -12,6 +11,7 @@
     }
   }
 ?>
+<?php include "./functions/package.php"; ?>
 <?php include "./inc/admin_header.php" ?>
       <div class="content">
         <div class="container-fluid">
@@ -23,7 +23,7 @@
                   <!-- <p class="card-category">Complete your profile</p> -->
                 </div>
                 <div class="card-body">
-                  <form action="./functions/package.php" method='POST'>
+                  <form action="" method='POST'>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">

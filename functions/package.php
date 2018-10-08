@@ -1,7 +1,6 @@
 <?php
-	include 'allhelper.php';
 
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get("login") == true){
 		$name = $_POST['name'];
 		$price = $_POST['price'];
 		$stock = $_POST['stock'];
@@ -23,8 +22,7 @@
 		}
 		
 		if($result){
-			header('Location:../packages.php');
-			echo "<script src='../assets/demo/demo.js'>demo.showNotification('info','Hello')</script>";
+			header('Location:packages.php');
 		}else{
 			echo "<script>alert('Something Went Wrong')</script>";
 		}
