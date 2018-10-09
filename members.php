@@ -23,12 +23,15 @@
                           Balance
                         </th>
                         <th>
-                          Action
+                          Referred
+                        </th>
+                        <th>
+                          Rank
                         </th>
                       </thead>
                       <tbody>
                         <?php 
-                          $sql = "SELECT * FROM mlm_members";
+                          $sql = "SELECT * FROM mlm_members order by id desc";
                           $result = $db->select($sql);
                           if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
@@ -41,8 +44,10 @@
                             <?php echo $row['balance']; ?>
                           </td>
                           <td>
-                            <a href="member.php?mode=Update&id=<?php echo $row['id']; ?>" class="btn btn-primary "><i class="material-icons">border_color</i></a>
-                            <a href="member.php?mode=Add" class="btn btn-danger "><i class="material-icons">delete</i></a>
+                            <?php echo $row['referred']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['rank']; ?>
                           </td>
                         </tr>
                         <?php

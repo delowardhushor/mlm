@@ -22,9 +22,21 @@
 		}
 		
 		if($result){
-			header('Location:packages.php');
+			header('Location:packages.php?success=Package '.$mode);
 		}else{
-			echo "<script>alert('Something Went Wrong')</script>";
+			header('Location:packages.php?error=Could Not '.$mode);
 		}
+	}
+
+	if(isset($_GET['delete']) && session::get("login") == true){
+		$id = $_GET['delete'];
+		$sql = "DELETE FROM mlm_packages WHERE id = '$id' ";
+		$result = $db->delete($sql);
+		if($result){
+			header('Location:packages.php?success=Package Deleted');
+		}else{
+			header('Location:packages.php?error=Could Not Delete');
+		}
+
 	}
 ?>

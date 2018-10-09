@@ -56,6 +56,19 @@
       md.initFormExtendedDatetimepickers();
     });
   </script>
+  <?php
+    if(isset($_GET['success'])){
+  ?>
+      <script>demo.showNotification('success', '<?php echo $_GET['success']; ?>' )</script>
+
+  <?php
+    }
+    if(isset($_GET['error'])){
+  ?>
+      <script>demo.showNotification('danger', '<?php echo $_GET['error']; ?>' )</script>
+  <?php
+    }
+  ?>
 </body>
 
 </html>
