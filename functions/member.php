@@ -102,7 +102,7 @@
 	}
 
 	function calc_board_2000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got1000 = '1' ORDER BY id DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got1000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
@@ -115,7 +115,7 @@
 	}
 
 	function calc_board_3000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got2000 = '1' ORDER BY id DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got2000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
@@ -128,7 +128,7 @@
 	}
 
 	function calc_board_4000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got3000 = '1' ORDER BY id DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got3000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
@@ -141,7 +141,7 @@
 	}
 
 	function calc_board_5000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got4000 = '1' ORDER BY id DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got4000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
@@ -154,7 +154,7 @@
 	}
 
 	function calc_board_6000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got5000 = '1' ORDER BY 'id' DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got5000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
@@ -167,7 +167,7 @@
 	}
 
 	function calc_board_7000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got6000 = '1' ORDER BY 'id' DESC";
+		$sql = "SELECT * FROM mlm_members WHERE got6000 = '1' ORDER BY id ASC";
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;

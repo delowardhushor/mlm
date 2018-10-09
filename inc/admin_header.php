@@ -28,7 +28,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           MLM
         </a>
       </div>
@@ -44,6 +44,12 @@
             <a class="nav-link" href="packages.php">
               <i class="material-icons">bubble_chart</i>
               <p>Packages</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./profile.php">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -109,7 +115,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo"><?php echo strtoupper(basename($_SERVER['PHP_SELF'] , '.php')); ?></a>
+            <a class="navbar-brand" href="#"><?php echo strtoupper(basename($_SERVER['PHP_SELF'] , '.php')); ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>

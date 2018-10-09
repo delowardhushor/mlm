@@ -13,7 +13,7 @@ $format= new format();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
-    $pass = $_POST['pass'];
+    $pass = md5($_POST['pass']);
 
     $sql = "SELECT email,id FROM mlm_users WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
 
@@ -69,19 +69,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Password -->
     <input type="password" name='pass' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
-    <div class="d-flex justify-content-around">
+    <!-- <div class="d-flex justify-content-around">
         <div>
-            <!-- Remember me -->
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
                 <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
             </div>
         </div>
         <div>
-            <!-- Forgot password -->
             <a href="">Forgot password?</a>
         </div>
-    </div>
+    </div> -->
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
