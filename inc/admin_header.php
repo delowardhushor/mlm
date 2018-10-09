@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard by Creative Tim
+    MLM - <?php echo basename($_SERVER['PHP_SELF'], ".php"); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -28,8 +28,8 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <a href="#" class="simple-text logo-normal">
+          MLM
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -46,7 +46,19 @@
               <p>Packages</p>
             </a>
           </li>
-          <li class="nav-item  ">
+          <li class="nav-item ">
+            <a class="nav-link" href="./profile.php">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="?logout">
+              <i class="material-icons">logout</i>
+              <p>Logout</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item  ">
             <a class="nav-link" href="./dashboard.html">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
@@ -88,13 +100,8 @@
               <p>Notifications</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="?logout">
-              <i class="material-icons">logout</i>
-              <p>Logout</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item active-pro ">
+          
+          <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>
                     <p>Upgrade to PRO</p>
@@ -108,7 +115,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Notifications</a>
+            <a class="navbar-brand" href="#"><?php echo strtoupper(basename($_SERVER['PHP_SELF'] , '.php')); ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -116,6 +123,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
+          <!-- header hidden start
           <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form">
               <div class="input-group no-border">
@@ -161,6 +169,7 @@
               </li>
             </ul>
           </div>
+          header hidden end -->
         </div>
       </nav>
       <!-- End Navbar -->

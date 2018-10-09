@@ -29,7 +29,7 @@
             <script>
               document.write(new Date().getFullYear())
             </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            <a href="https://www.facebook.com/falgunitsolution" target="_blank">Falgun IT</a> for a better web.
           </div>
         </div>
       </footer>
@@ -56,6 +56,19 @@
       md.initFormExtendedDatetimepickers();
     });
   </script>
+  <?php
+    if(isset($_GET['success'])){
+  ?>
+      <script>demo.showNotification('success', '<?php echo $_GET['success']; ?>' )</script>
+
+  <?php
+    }
+    if(isset($_GET['error'])){
+  ?>
+      <script>demo.showNotification('danger', '<?php echo $_GET['error']; ?>' )</script>
+  <?php
+    }
+  ?>
 </body>
 
 </html>
