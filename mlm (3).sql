@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2018 at 11:49 AM
+-- Generation Time: Oct 11, 2018 at 01:56 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -31,6 +31,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `mlm_members` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `package` int(11) NOT NULL,
   `balance` int(99) NOT NULL DEFAULT '0',
   `rank` varchar(255) NOT NULL DEFAULT 'none',
   `parent_member` int(99) DEFAULT NULL,
@@ -49,8 +52,9 @@ CREATE TABLE `mlm_members` (
 -- Dumping data for table `mlm_members`
 --
 
-INSERT INTO `mlm_members` (`id`, `name`, `balance`, `rank`, `parent_member`, `referred`, `got500`, `got1000`, `got2000`, `got3000`, `got4000`, `got5000`, `got6000`, `got7000`) VALUES
-(1, 'Delowar', 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `mlm_members` (`id`, `name`, `email`, `pass`, `package`, `balance`, `rank`, `parent_member`, `referred`, `got500`, `got1000`, `got2000`, `got3000`, `got4000`, `got5000`, `got6000`, `got7000`) VALUES
+(1, 'Delowar', '', '', 0, 220, 'none', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'Hello', 'del@yahoo.com', '1212', 0, 0, 'none', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -71,7 +75,7 @@ CREATE TABLE `mlm_packages` (
 --
 
 INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`) VALUES
-(1, 'Package A', '40000', 19, 'Test');
+(1, 'Package A', '40000', 18, 'Test');
 
 -- --------------------------------------------------------
 
@@ -122,7 +126,7 @@ ALTER TABLE `mlm_users`
 -- AUTO_INCREMENT for table `mlm_members`
 --
 ALTER TABLE `mlm_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mlm_packages`
