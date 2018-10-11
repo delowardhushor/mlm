@@ -5,9 +5,11 @@
 		$name = $_POST['name'];
 		$parent_member = $_POST['parent_member'];
 		$package = $_POST['package'];
+		$email = $_POST['email'];
+		$pass = $_POST['pass'];
 
 		$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
-		$sql = "INSERT INTO mlm_members (name, parent_member) VALUES ('$name', '$parent_member')";
+		$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', 'package')";
 
 		if ($db->update($update_package) && $db->insert($sql)) {
 

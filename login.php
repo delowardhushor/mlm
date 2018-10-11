@@ -15,7 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $pass = md5($_POST['pass']);
 
-    $sql = "SELECT email,id FROM mlm_users WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
+    $type = $_POST['type'];
+
+    $table = 'mlm_members';
+
+    if($type == 'admin'){
+      $table = 'mlm_users';
+    }
+
+    $sql = "SELECT email,id FROM '$table' WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
 
     $result = $db->select($sql);
 
@@ -25,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($row > 0 ) {
         
         session::set("login", true );
+        session::set("usertype", $type );
         session::set("email", $value['email']);
         session::set("userid", $value['id']);
          header('Location:index.php');
@@ -64,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p class="h4 mb-4">Sign in</p>
 
     <!-- Email -->
-    <input type="email" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+    <input type="email" required="1" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
 
     <!-- Password -->
-    <input type="password" name='pass' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+    <input type="password" required="1" name='pass' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
     <!-- <div class="d-flex justify-content-around">
         <div>
@@ -80,6 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="">Forgot password?</a>
         </div>
     </div> -->
+    <div class="d-flex justify-content-around">
+        <label class="radio-inline">
+          <input type="radio" required="1" name="type" value="admin" checked> I am Admin
+        </label>
+        <label class="radio-inline">
+          <input checked type="radio" required="1" value="member" name="type"> I am Member
+        </label>
+    </div>
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>

@@ -28,7 +28,23 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Name</label>
-                          <input type="text" name="name" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                          <input type="text" name="name" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="email" name="email" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input type="password" name="pass" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -36,7 +52,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="sel1">Select Reference</label>
-                          <select class="form-control" name="parent_member" id="sel1">
+                          <select required="1" class="form-control" name="parent_member" id="sel1">
                             <?php 
                               $member_sql = "SELECT * FROM mlm_members LIMIT 10";
                               $member_result = $db->select($member_sql); 
@@ -55,8 +71,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="sel1">Select Reference</label>
-                          <select class="form-control" name="package" id="sel1">
+                          <label for="sel1">Select Package</label>
+                          <select required="1" class="form-control" name="package" id="sel1">
                             <?php 
                               $package_sql = "SELECT * FROM mlm_packages";
                               $package_result = $db->select($package_sql); 
