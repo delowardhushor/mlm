@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2018 at 01:56 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Oct 12, 2018 at 11:30 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,14 +48,6 @@ CREATE TABLE `mlm_members` (
   `got7000` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `mlm_members`
---
-
-INSERT INTO `mlm_members` (`id`, `name`, `email`, `pass`, `package`, `balance`, `rank`, `parent_member`, `referred`, `got500`, `got1000`, `got2000`, `got3000`, `got4000`, `got5000`, `got6000`, `got7000`) VALUES
-(1, 'Delowar', '', '', 0, 220, 'none', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 'Hello', 'del@yahoo.com', '1212', 0, 0, 'none', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -75,7 +67,7 @@ CREATE TABLE `mlm_packages` (
 --
 
 INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`) VALUES
-(1, 'Package A', '40000', 18, 'Test');
+(1, 'Package A', '5000', 20, 'Test');
 
 -- --------------------------------------------------------
 
@@ -94,7 +86,7 @@ CREATE TABLE `mlm_users` (
 --
 
 INSERT INTO `mlm_users` (`id`, `email`, `pass`) VALUES
-(1, 'admin@mlm.com', '63c4b1baf3b4460fa9936b1a20919bec');
+(1, 'admin@mlm.com', 'cd92a26534dba48cd785cdcc0b3e6bd1');
 
 --
 -- Indexes for dumped tables
@@ -126,7 +118,7 @@ ALTER TABLE `mlm_users`
 -- AUTO_INCREMENT for table `mlm_members`
 --
 ALTER TABLE `mlm_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mlm_packages`

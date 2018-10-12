@@ -12,6 +12,24 @@
                 </div>
                 <div class="card-body">
                   <form action="" method='POST'>
+                    <?php if(session::get('usertype') == 'member'){
+                      $userid = session::get('userid');
+                      $sql = "SELECT name FROM mlm_members WHERE id = '$userid' LIMIT 1 ";
+
+                      $result = $db->select($sql);
+
+                      if ($result != false) {
+                        $value = mysqli_fetch_array($result);
+                    ?>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Name</label>
+                          <input type="text" name="name" readonly="1" value="<?php  echo $value['name']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <?php } } ?>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
