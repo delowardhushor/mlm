@@ -6,14 +6,15 @@
 		$parent_member = $_POST['parent_member'];
 		$package = $_POST['package'];
 		$email = $_POST['email'];
-		$pass = $_POST['pass'];
+		$pass = md5($_POST['pass']);
+		$usertype = $_POST['usertype'];
 
 		$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
-		$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', 'package')";
+		$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
 
 		if ($db->update($update_package) && $db->insert($sql)) {
 
-			update_parent($parent_member, $db->link->insert_id-1, $db);
+			update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
 			Header('Location:../members.php?success=Member Added');
 
@@ -22,14 +23,19 @@
 		} 
 	}
 
-	function update_parent($id, $latest_id, $db){
+	function update_parent($id, $usertype , $package, $latest_id, $db){
 
 		$sql = "SELECT * FROM mlm_members WHERE id = '$id' LIMIT 1 ";
+		$package_sql = "SELECT * FROM mlm_packages WHERE id = '$package' LIMIT 1 ";
 
 	    $result = $db->select($sql);
 
-	    if ($result != false) {
+	    $package_result = $db->select($package_sql);
+
+	    if ($result != false && $package_result != false) {
 	      $value = mysqli_fetch_array($result);
+	      $package_value = mysqli_fetch_array($package_result);
+	      $price = $package_value['price'];
 	      $rank = 'none';
 	      $referred = $value['referred']+1;
 	      if( 5 <= $referred && $referred <= 19 ){
@@ -41,6 +47,10 @@
 	      }
 
 	      $update_sql = "UPDATE mlm_members SET balance = balance+200,  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
+
+	      if($usertype == 'member'){
+	      	$update_sql = "UPDATE mlm_members SET balance = balance+200-'$price',  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
+	      }
 	      if($db->update($update_sql)){
 	      	calc_generation($latest_id, $db);
 	      }

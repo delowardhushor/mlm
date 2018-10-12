@@ -1,16 +1,4 @@
 <?php include "./inc/head.php" ?>
-<?php
-  $mode  = $_GET['mode'];
-  
-  if($_GET['mode'] === 'Update' && is_numeric($_GET['id']) === true){
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM mlm_packages WHERE id = '$id' LIMIT 1 ";
-    $result = $db->select($sql);
-    if ($result != false) {
-      $value = mysqli_fetch_array($result);
-    }
-  }
-?>
 <?php //include "./functions/member.php"; ?>
 <?php include "./inc/admin_header.php" ?>
       <div class="content">
@@ -19,7 +7,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title"><?php echo $_GET['mode']; ?> Member</h4>
+                  <h4 class="card-title">Add Member</h4>
                   <!-- <p class="card-category">Complete your profile</p> -->
                 </div>
                 <div class="card-body">
@@ -28,7 +16,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Name</label>
-                          <input type="text" name="name" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                          <input type="text" name="name" required="1" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -36,7 +24,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email</label>
-                          <input type="email" name="email" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                          <input type="email" name="email" required="1"  class="form-control">
                         </div>
                       </div>
                     </div>
@@ -44,10 +32,11 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Password</label>
-                          <input type="password" name="pass" required="1" value="<?php if($mode === 'Update'){ echo $value['name']; } ?>" class="form-control">
+                          <input type="password" name="pass" required="1" class="form-control">
                         </div>
                       </div>
                     </div>
+                    <?php if(session::get('usertype') == 'admin'){ ?>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -59,7 +48,7 @@
                               if ($member_result->num_rows > 0) {
                                   while($member_row = $member_result->fetch_assoc()) {
                               ?>
-                                <option value="<?php echo $member_row["id"]; ?>"><?php echo  $member_row["name"]; ?></option>
+                                <option  value="<?php echo $member_row["id"]; ?>"><?php echo  $member_row["name"]; ?></option>
                             <?php
                                 }
                               }
@@ -68,6 +57,9 @@
                         </div>
                       </div>
                     </div>
+                    <?php }else{ ?>
+                      <input type="text" style="display: none" name="parent_member" value="<?php echo session::get('userid'); ?>">
+                    <?php } ?>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -99,15 +91,8 @@
                         </div>
                       </div>
                     </div> -->
-                    <input style="display: none" name="mode" value="<?php echo $_GET['mode']; ?>">
-                    <?php
-                      if($_GET['mode'] === 'Update' && is_numeric($_GET['id']) === true ){
-                    ?>
-                    <input style="display: none" name="id" value="<?php echo $_GET['id']; ?>">
-                    <?php
-                      }
-                    ?>
-                    <button type="submit" class="btn btn-primary pull-right"><?php echo $mode; ?> Member</button>
+                    <input style="display: none" name="usertype" value="<?php echo session::get('usertype'); ?>">
+                    <button type="submit" class="btn btn-primary pull-right">Add Member</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

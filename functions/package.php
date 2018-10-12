@@ -1,6 +1,6 @@
 <?php
 
-	if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get("login") == true){
+	if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get("usertype") == 'admin'){
 		$name = $_POST['name'];
 		$price = $_POST['price'];
 		$stock = $_POST['stock'];
@@ -28,7 +28,7 @@
 		}
 	}
 
-	if(isset($_GET['delete']) && session::get("login") == true){
+	if(isset($_GET['delete']) && session::get("usertype") == 'admin'){
 		$id = $_GET['delete'];
 		$sql = "DELETE FROM mlm_packages WHERE id = '$id' ";
 		$result = $db->delete($sql);

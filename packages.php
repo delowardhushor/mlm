@@ -1,4 +1,9 @@
 <?php include "./inc/head.php"; ?>
+<?php
+  if(session::get('usertype') !== 'admin'){
+    header('Location:profile.php?error=You dont Have the Permission');
+  }
+?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">

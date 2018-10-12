@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $table = 'mlm_users';
     }
 
-    $sql = "SELECT email,id FROM '$table' WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
+    $sql = "SELECT email,id FROM $table WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
 
     $result = $db->select($sql);
 

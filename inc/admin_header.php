@@ -40,12 +40,14 @@
               <p>Members</p>
             </a>
           </li>
+          <?php if(session::get('usertype') == 'admin'){ ?>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
             <a class="nav-link" href="packages.php">
               <i class="material-icons">bubble_chart</i>
               <p>Packages</p>
             </a>
           </li>
+          <?php } ?>
           <li class="nav-item ">
             <a class="nav-link" href="./profile.php">
               <i class="material-icons">person</i>
