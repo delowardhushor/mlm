@@ -4,11 +4,15 @@
 
   $sql_user = "SELECT * FROM mlm_members WHERE id = '$userid' LIMIT 1";
   $result_user = $db->select($sql_user);
-  $value_user = mysqli_fetch_array($result_user);
+  if($result_user){
+    $value_user = mysqli_fetch_array($result_user);
+  }
 
   $sql_all = "SELECT * FROM mlm_members";
   $result_all = $db->select($sql_all);
-  $total_all = $result_all->num_rows;
+  if($result_all){
+    $total_all = $result_all->num_rows;
+  }
 
   $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ";
   $result_under = $db->select($sql_under);
@@ -98,7 +102,7 @@
                     <i class="material-icons">people</i>
                   </div>
                   <p class="card-category">Total Member</p>
-                  <h3 class="card-title"><?php echo $total_all; ?></h3>
+                  <h3 class="card-title"><?php  if(isset($total_all)){echo $total_all;}else{echo 0; } ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -178,7 +182,7 @@
                     <i class="material-icons">people</i>
                   </div>
                   <p class="card-category">Total Member</p>
-                  <h3 class="card-title"><?php echo $total_all; ?></h3>
+                  <h3 class="card-title"><?php  if(isset($total_all)){echo $total_all;}else{echo 0; } ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -189,7 +193,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6 col-md-12">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">List of Latest Member</h4>

@@ -9,21 +9,52 @@
 		$pass = md5($_POST['pass']);
 		$usertype = $_POST['usertype'];
 
-		$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
-		$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
+		$sql_member_blance = "SELECT * FROM mlm_members WHERE id = '$parent_member' LIMIT 1 ";
+		$package_sql_balance = "SELECT * FROM mlm_packages WHERE id = '$package' LIMIT 1 ";
 
-		if ($db->update($update_package) && $db->insert($sql)) {
+	    $result_member_blance = $db->select($sql_member_blance);
+	    $row_mem_bal = mysqli_fetch_array($result_member_blance);
 
-			update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
+	    $package_result_member_blance = $db->select($package_sql_balance);
+	    $row_pak_price = mysqli_fetch_array($package_result_member_blance);
 
-			Header('Location:../members.php?success=Member Added');
 
+		if($usertype == 'admin'){
+
+			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
+			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
+
+			if ($db->update($update_package) && $db->insert($sql)) {
+
+				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
+
+				Header('Location:../member.php?success=Member Added');
+
+			}else{
+				Header('Location:../member.php?error=Member Not Added');
+			} 
+
+		}elseif($row_mem_bal['balance'] >= $row_pak_price['price']){
+			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
+			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
+
+			if ($db->update($update_package) && $db->insert($sql)) {
+
+				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
+
+				Header('Location:../member.php?success=Member Added');
+
+			}else{
+				Header('Location:../member.php?error=Member Not Added');
+			} 
 		}else{
-			Header('Location:../members.php?error=Member Not Added');
-		} 
+			Header('Location:../member.php?error=You dont have Enough Balance');
+		}
 	}
 
 	function update_parent($id, $usertype , $package, $latest_id, $db){
+
+		$db->update("UPDATE mlm_users SET balance = balance + 15 WHERE id = 1 ");
 
 		$sql = "SELECT * FROM mlm_members WHERE id = '$id' LIMIT 1 ";
 		$package_sql = "SELECT * FROM mlm_packages WHERE id = '$package' LIMIT 1 ";
@@ -51,10 +82,41 @@
 	      if($usertype == 'member'){
 	      	$update_sql = "UPDATE mlm_members SET balance = balance+200-'$price',  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
 	      }
+
 	      if($db->update($update_sql)){
-	      	calc_generation($latest_id, $db);
+	      	calc_rank($latest_id, $db);
 	      }
 	  	}
+	}
+
+	function calc_rank($latest_id, $db){
+		$sql_silver = "SELECT COUNT(id) AS total_silver FROM mlm_members WHERE rank = 'Silver' ";
+		$result_silver = $db->select($sql_silver);
+		$value_silver = mysqli_fetch_array($result_silver);
+		if($value_silver['total_silver'] > 0){
+			$add_silver = 45/$value_silver['total_silver'];
+			$db->update("UPDATE mlm_members SET balance = balance + $add_silver WHERE rank = 'Silver' ");
+		}
+		
+
+		$sql_gold = "SELECT COUNT(id) AS total_gold FROM mlm_members WHERE rank = 'Gold' ";
+		$result_gold = $db->select($sql_gold);
+		$value_gold = mysqli_fetch_array($result_gold);
+		if($value_gold['total_gold'] > 0){
+			$add_gold = 45/$value_gold['total_gold'];
+			$db->update("UPDATE mlm_members SET balance = balance + $add_gold WHERE rank = 'Gold' ");
+		}
+
+		$sql_platinum = "SELECT COUNT(id) AS total_platinum FROM mlm_members WHERE rank = 'Platinum' ";
+		$result_platinum = $db->select($sql_platinum);
+		$value_platinum = mysqli_fetch_array($result_platinum);
+		if($value_platinum['total_platinum'] > 0){
+			$add_platinum = 45/$value_platinum['total_platinum'];
+			$db->update("UPDATE mlm_members SET balance = balance + $add_platinum WHERE rank = 'Platinum' ");
+		}
+
+		//print_r($value);
+		calc_generation($latest_id, $db);
 	}
 
 	function calc_generation($id, $db){
@@ -91,7 +153,6 @@
 		$result = $db->select($sql);
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
-		echo $id;
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 500, got500 = '1' WHERE id = '$id' ";
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
@@ -186,7 +247,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 7000, got7000 = '1' WHERE id = '$id' ";
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				header('Location:../members.php?success=Member Added');
+				header('Location:../member.php?success=Member Added');
 			}
 		}
 	}
