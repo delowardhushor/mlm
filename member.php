@@ -41,7 +41,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="sel1">Select Reference</label>
-                          <select required="1" class="form-control" name="parent_member" id="sel1">
+                          <select class="form-control" name="parent_member" id="sel1">
                             <?php 
                               $member_sql = "SELECT * FROM mlm_members LIMIT 10";
                               $member_result = $db->select($member_sql); 
@@ -92,7 +92,7 @@
                       </div>
                     </div> -->
                     <input style="display: none" name="usertype" value="<?php echo session::get('usertype'); ?>">
-                    <button type="submit" class="btn btn-primary pull-right">Add Member</button>
+                    <button onclick="return confirm('Have You Reviewed All Information? It can not be undone!')" type="submit" class="btn btn-primary pull-right">Add Member</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

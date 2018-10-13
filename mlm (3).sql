@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2018 at 11:30 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Oct 13, 2018 at 06:34 AM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -67,7 +67,7 @@ CREATE TABLE `mlm_packages` (
 --
 
 INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`) VALUES
-(1, 'Package A', '5000', 20, 'Test');
+(1, 'Package A', '40000', 13, 'Test');
 
 -- --------------------------------------------------------
 
