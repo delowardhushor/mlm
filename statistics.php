@@ -22,10 +22,18 @@
   if($result_refer){
     $total_refer = $result_refer->num_rows;
   }
+
+  $sql_latest = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT 10";
+  $result_latest = $db->select($sql_latest);
+  if($result_latest){
+    $total_latest = $result_latest->num_rows;
+  }
+
 ?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">
+          <?php if(session::get('usertype') == 'member'){ ?>
           <div class="row">
             <div class="col-md-12">
               <div class="alert alert-info">
@@ -160,6 +168,58 @@
               </div>
             </div>
           </div>
+          <?php } ?>
+          <?php if(session::get('usertype') == 'admin'){ ?>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">people</i>
+                  </div>
+                  <p class="card-category">Total Member</p>
+                  <h3 class="card-title"><?php echo $total_all; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">update</i> Total number of members
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-info">
+                  <h4 class="card-title">List of Latest Member</h4>
+                  <p class="card-category"></p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Name</th>
+                      <th>Balance</th>
+                      <th>Rank</th>
+                    </thead>
+                    <tbody>
+                      <?php
+                        if($result_latest && $total_latest > 0){
+                          while ($latest_member = $result_latest->fetch_assoc()) {
+                      ?>
+                      <tr>
+                        <td><?php echo $latest_member['name']; ?></td>
+                        <td><?php echo $latest_member['balance']; ?></td>
+                        <td><?php echo $latest_member['rank']; ?></td>
+                      </tr>
+                      <?php } } ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
         </div>
       </div>
 <?php include "./inc/admin_footer.php" ?>

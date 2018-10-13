@@ -34,6 +34,12 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'statistics.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="statistics.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Statistics</p>
+            </a>
+          </li>
           <?php if(session::get('usertype') == 'admin'){ ?>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'members.php'){echo 'active'; } ?>">
             <a class="nav-link" href="members.php">
@@ -49,12 +55,6 @@
           </li>
           <?php } ?>
           <?php if(session::get('usertype') == 'member'){ ?>
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'statistics.php'){echo 'active'; } ?>">
-            <a class="nav-link" href="statistics.php">
-              <i class="material-icons">bar_chart</i>
-              <p>Statistics</p>
-            </a>
-          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
             <a class="nav-link" href="member.php">
               <i class="material-icons">person_add</i>

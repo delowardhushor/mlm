@@ -36,11 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session::set("usertype", $type );
         session::set("email", $value['email']);
         session::set("userid", $value['id']);
-        if($type == 'admin'){
-          header('Location:members.php');
-        }else{
-          header('Location:statistics.php');
-        }
+        header('Location:statistics.php');
       }else{
         echo "<script>alert('Username doesn't exist');</script>";
       }
