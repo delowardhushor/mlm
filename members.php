@@ -33,6 +33,9 @@
                         <th>
                           Rank
                         </th>
+                        <th>
+                          Details
+                        </th>
                       </thead>
                       <tbody>
                         <?php 
@@ -53,6 +56,9 @@
                           </td>
                           <td>
                             <?php echo $row['rank']; ?>
+                          </td>
+                          <td>
+                            <a href="details.php?details=<?php echo $row['id']; ?>" type="submit" class="btn btn-primary ">Details</a>
                           </td>
                         </tr>
                         <?php

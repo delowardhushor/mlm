@@ -43,7 +43,7 @@
                           <label for="sel1">Select Reference</label>
                           <select class="form-control" name="parent_member" id="sel1">
                             <?php 
-                              $member_sql = "SELECT * FROM mlm_members LIMIT 10";
+                              $member_sql = "SELECT * FROM mlm_members";
                               $member_result = $db->select($member_sql); 
                               if ($member_result->num_rows > 0) {
                                   while($member_row = $member_result->fetch_assoc()) {
