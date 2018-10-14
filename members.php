@@ -18,7 +18,7 @@
     $page = 1;
   }
 
-  $perpage = 2;
+  $perpage = 50;
   if($search == ''){
     $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_member FROM mlm_members")))['total_member']/$perpage);
   }else{

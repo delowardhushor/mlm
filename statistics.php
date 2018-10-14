@@ -1,6 +1,17 @@
 <?php include "./inc/head.php"; ?>
 <?php
+
   $userid = session::get('userid');
+  
+  if(isset($_GET['page'])){
+    $page = $_GET['page'];
+  }else{
+    $page = 1;
+  }
+
+  $perpage = 50;
+
+  $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_member FROM mlm_members WHERE id > '$userid'")))['total_member']/$perpage);
 
   $sql_user_bal = "SELECT * FROM mlm_users WHERE id = 1 LIMIT 1";
   $result_user_bal = $db->select($sql_user_bal);
@@ -20,7 +31,8 @@
     $total_all = $result_all->num_rows;
   }
 
-  $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ";
+  $offset = ($page-1)*$perpage;
+  $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ORDER BY id DESC LIMIT $perpage  OFFSET $offset ";
   $result_under = $db->select($sql_under);
   if($result_under){
     $total_under = $result_under->num_rows;
@@ -146,6 +158,25 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+              <div class="col-md-12">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <?php if($page > 1){ ?>
+                    <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page-1; ?>">Previous</a></li>
+                    <?php
+                    } 
+                    for($i = 1; $i <= $total_page; $i++){
+                    ?>
+                    <li class="page-item "><a class="btn  <?php if($page==$i){echo 'btn-primary';}else{echo 'btn-default';} ?>" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php 
+                    } 
+                    if($total_page > $page){
+                    ?>
+                    <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page+1; ?>">Next</a></li>
+                    <?php } ?>
+                  </ul>
+                </nav>
               </div>
             </div>
             <div class="col-lg-6 col-md-12">
