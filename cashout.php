@@ -1,16 +1,15 @@
 <?php include "./inc/head.php"; ?>
 <?php 
-  if(session::get('usertype') !== 'admin'){
+  if(!isset($_GET['member']) || $_GET['member'] == ''){
+    header('Location:statistics.php');
+  }else{
+    $member = $_GET['member'];
+  }
+  if(session::get('usertype') !== 'admin' && session::get('userid') !== $member  ){
     header('Location:statistics.php');
   }
 ?>
 <?php
-
-  $search = '';
-
-  if(isset($_GET['search'])){
-    $search = $_GET['search'];
-  }
 
   if(isset($_GET['page'])){
     $page = $_GET['page'];
@@ -19,33 +18,28 @@
   }
 
   $perpage = 50;
-  if($search == ''){
-    $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_member FROM mlm_members")))['total_member']/$perpage);
-  }else{
-    $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_member FROM mlm_members WHERE name LIKE '%$search%'")))['total_member']/$perpage);
-  }
-  
+    $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_cashout FROM mlm_cashout WHERE member = '$member'")))['total_cashout']/$perpage);  
 
 ?>
+<?php include "./functions/cashout.php"; ?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <form>
+              <form action="" method="post">
                 <div class="row">
                   <div class="col-md-6">
-                    <a href="member.php?mode=Add" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Member</a>
                   </div>
                   
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Search</label>
-                      <input type="text" name="search" class="form-control">
+                      <label class="bmd-label-floating">Cashout Amount</label>
+                      <input type="text" required="1" name="amount" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary ">Search</button>
+                    <button type="submit" class="btn btn-primary ">Cashout Now</button>
                   </div>
                 </div>
               </form>
@@ -53,8 +47,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Member List</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h4 class="card-title ">Cash out History</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -66,44 +59,21 @@
                         <th>
                           Balance
                         </th>
-                        <th>
-                          Referred
-                        </th>
-                        <th>
-                          Rank
-                        </th>
-                        <th>
-                          Action
-                        </th>
                       </thead>
                       <tbody>
                         <?php 
                           $offset = ($page-1)*$perpage;
-                          if($search == ''){
-                            $sql = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
-                          }else{
-                            $sql = "SELECT * FROM mlm_members WHERE name LIKE '%$search%' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
-                          }
+                          $sql = "SELECT * FROM mlm_cashout WHERE member = '$member' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
                           $result = $db->select($sql);
                           if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                         ?>
                         <tr>
                           <td>
-                            <?php echo $row['name']; ?>
+                            <?php echo $format->formatDate($row['date']); ?>
                           </td>
                           <td class="text-primary">
-                            <?php echo $row['balance']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['referred']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['rank']; ?>
-                          </td>
-                          <td>
-                            <a href="details.php?details=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Details</a>
-                            <a href="cashout.php?member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-primary  ">Cash Out</a>
+                            <?php echo $row['amount']; ?>
                           </td>
                         </tr>
                         <?php

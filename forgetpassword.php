@@ -13,8 +13,6 @@ $format= new format();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
-    $pass = md5($_POST['pass']);
-
     $type = $_POST['type'];
 
     $table = 'mlm_members';
@@ -23,25 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $table = 'mlm_users';
     }
 
-    $sql = "SELECT email,id FROM $table WHERE email = '$email' AND pass = '$pass' LIMIT 1 ";
+    $sql = "SELECT email FROM $table WHERE email = '$email' LIMIT 1 ";
 
     $result = $db->select($sql);
 
     if ($result != false) {
-      $value = mysqli_fetch_array($result);
-      $row = mysqli_num_rows($result);
-      if ($row > 0 ) {
-        
-        session::set("login", true );
-        session::set("usertype", $type );
-        session::set("email", $value['email']);
-        session::set("userid", $value['id']);
-        header('Location:statistics.php');
-      }else{
-        echo "<script>alert('Username doesn't exist');</script>";
+      $email = (mysqli_fetch_array($result))['email'];
+
+      $msg = rand ( 100000 , 999999 );
+      $pass = md5($msg);
+      $msg = wordwrap($msg,70);
+      
+      if($db->update("UPDATE $table SET pass = '$pass' WHERE email = '$email'") && mail($email,"Temporary Password of Your MLM Account",$msg)){
+        header('Location:forgetpassword.php?success=Email Sent');
       }
     }else{
-      echo "<script>alert('Username doesn't exist')</script>";
+      header('Location:forgetpassword.php?error=Invalid Email');
     }
   }
 ?>
@@ -54,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    MLM - Login
+    MLM - Recover Password
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -70,13 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div style="margin: 0 auto;" class="col-12 col-sm-6 col-md-4">
 <form action='' method="POST" class="text-center border border-light p-5">
 
-    <p class="h4 mb-4">Sign in</p>
+    <p class="h4 mb-4">Recover Password</p>
 
     <!-- Email -->
     <input type="email" required="1" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-
-    <!-- Password -->
-    <input type="password" required="1" name='pass' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
     
     <div class="d-flex justify-content-around">
@@ -89,16 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- Sign in button -->
-    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+    <button class="btn btn-info btn-block my-4" type="submit">Recover</button>
     <div class="d-flex justify-content-around">
-        <!-- <div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-            </div>
-        </div> -->
         <div>
-            <a href="forgetpassword.php">Forgot password?</a>
+            <a href="login.php">Want to Login?</a>
         </div>
     </div>
 </form>
@@ -125,6 +111,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       md.initFormExtendedDatetimepickers();
     });
   </script>
+  <?php
+    if(isset($_GET['success'])){
+  ?>
+      <script>demo.showNotification('success', '<?php echo $_GET['success']; ?>' )</script>
+
+  <?php
+    }
+    if(isset($_GET['error'])){
+  ?>
+      <script>demo.showNotification('danger', '<?php echo $_GET['error']; ?>' )</script>
+  <?php
+    }
+  ?>
 </body>
 
 </html>
