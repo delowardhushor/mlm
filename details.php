@@ -143,7 +143,7 @@
             </div>
             <div class="col-md-3">
               <div class="alert alert-danger">
-                <span>Earn by Generation <?php echo $income['by_board']; ?></span>
+                <span>Earn by Board Commission <?php echo $income['by_board']; ?></span>
               </div>
             </div>
             <div class="col-md-3">

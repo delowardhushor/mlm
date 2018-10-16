@@ -44,7 +44,7 @@
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary ">Cashout Now</button>
+                    <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" class="btn btn-primary ">Cashout Now</button>
                   </div>
                 </div>
               </form>
