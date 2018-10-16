@@ -20,6 +20,8 @@
   $perpage = 50;
     $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_cashout FROM mlm_cashout WHERE member = '$member'")))['total_cashout']/$perpage);  
 
+  $member_details = mysqli_fetch_array($db->select("SELECT name,balance FROM mlm_members WHERE id = '$member'"));
+
 ?>
 <?php include "./functions/cashout.php"; ?>
 <?php include "./inc/admin_header.php"; ?>
@@ -30,6 +32,9 @@
               <form action="" method="post">
                 <div class="row">
                   <div class="col-md-6">
+                    <div class="alert alert-info">
+                      <span><?php echo $member_details['name']; ?>'s Current Balance is <?php echo $member_details['balance']; ?></span>
+                    </div>
                   </div>
                   
                   <div class="col-md-4">

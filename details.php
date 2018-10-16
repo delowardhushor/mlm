@@ -50,6 +50,8 @@
     $total_latest = $result_latest->num_rows;
   }
 
+  $income = mysqli_fetch_array($db->select("SELECT * FROM mlm_income WHERE member = '$userid' "));
+
 ?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
@@ -125,6 +127,28 @@
                     <i class="material-icons">update</i> Total number of members
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="alert alert-info">
+                <span>Earn by Generation <?php echo $income['by_generation']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-primary">
+                <span>Earn by Rank <?php echo $income['by_rank']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-danger">
+                <span>Earn by Generation <?php echo $income['by_board']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-success">
+                <span>Earn by Referance <?php echo $income['by_refer']; ?></span>
               </div>
             </div>
           </div>
