@@ -23,7 +23,7 @@
   $member_details = mysqli_fetch_array($db->select("SELECT name,balance FROM mlm_members WHERE id = '$member'"));
 
 ?>
-<?php include "./functions/cashout.php"; ?>
+<?php include "./functions/cash.php"; ?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">

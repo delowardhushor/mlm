@@ -103,7 +103,7 @@
                           </td>
                           <td>
                             <a href="details.php?details=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Details</a>
-                            <a href="cashout.php?member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-primary  ">Cash Out</a>
+                            <a href="cash.php?member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-primary  ">Cash Out</a>
                           </td>
                         </tr>
                         <?php

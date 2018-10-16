@@ -7,7 +7,7 @@
 			$db->insert("UPDATE mlm_members SET balance = balance-'$amount' WHERE id = '$member' ")
 		)
 		{
-			header('Location:cashout.php?member='.$member.'&success=Cashout Success');
+			header('Location:cash.php?member='.$member.'&success=Cashout Success');
 		}
 	}
 ?>
