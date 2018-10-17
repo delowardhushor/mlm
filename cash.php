@@ -31,19 +31,34 @@
             <div class="col-md-12">
               <form action="" method="post">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="alert alert-info">
                       <span><?php echo $member_details['name']; ?>'s Current Balance is <?php echo $member_details['balance']; ?></span>
                     </div>
                   </div>
+                </div>
+                <div class='row'>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Sent Mobile Number</label>
+                      <input type="text" required="1" name="sent_mobile" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Transaction ID</label>
+                      <input type="text" required="1" name="transaction_number" class="form-control">
+                    </div>
+                  </div>
                   
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label class="bmd-label-floating">Cashout Amount</label>
                       <input type="text" required="1" name="amount" class="form-control">
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" class="btn btn-primary ">Cashout Now</button>
                   </div>
                 </div>
@@ -59,7 +74,13 @@
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          Name
+                          Date
+                        </th>
+                        <th>
+                          Sent To
+                        </th>
+                        <th>
+                          Transaction ID
                         </th>
                         <th>
                           Balance
@@ -76,6 +97,12 @@
                         <tr>
                           <td>
                             <?php echo $format->formatDate($row['date']); ?>
+                          </td>
+                          <td >
+                            <?php echo $row['sent_mobile']; ?>
+                          </td>
+                          <td >
+                            <?php echo $row['transaction_number']; ?>
                           </td>
                           <td class="text-primary">
                             <?php echo $row['amount']; ?>

@@ -32,7 +32,7 @@
   }
 
   $offset = ($page-1)*$perpage;
-  $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ORDER BY id DESC LIMIT $perpage  OFFSET $offset ";
+  $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ORDER BY id ASC LIMIT $perpage  OFFSET $offset ";
   $result_under = $db->select($sql_under);
   if($result_under){
     $total_under = $result_under->num_rows;
