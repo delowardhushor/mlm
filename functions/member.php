@@ -105,7 +105,7 @@
 		$sql_silver = "SELECT id FROM mlm_members WHERE rank = 'Silver' ";
 		$result_silver = $db->select($sql_silver);
 		$numberOFRank = 0;
-		if($result_silver->num_rows > 0){
+		if($result_silver){
 			$numberOFRank = $numberOFRank+1;
 			$add_silver = 45/$result_silver->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_silver WHERE rank = 'Silver' ");
@@ -119,7 +119,7 @@
 
 		$sql_gold = "SELECT id FROM mlm_members WHERE rank = 'Gold' ";
 		$result_gold = $db->select($sql_gold);
-		if($result_gold->num_rows > 0){
+		if($result_gold){
 			$numberOFRank = $numberOFRank+1;
 			$add_gold = 45/$result_gold->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_gold WHERE rank = 'Gold' ");
@@ -132,7 +132,7 @@
 
 		$sql_platinum = "SELECT id FROM mlm_members WHERE rank = 'Platinum' ";
 		$result_platinum = $db->select($sql_platinum);
-		if($result_platinum->num_rows > 0){
+		if($result_platinum){
 			$numberOFRank = $numberOFRank+1;
 			$add_platinum = 45/$result_platinum->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_platinum WHERE rank = 'Platinum' ");
@@ -148,35 +148,52 @@
 		$db->Update("UPDATE mlm_users SET balance = balance - $lessRankBalance WHERE id = 1 ");
 
 		//print_r($value);
-		calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, 15);
-	}
+		//calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, 15);
 
-	function calc_generation($id, $db, $generation){
-
-		$commission = 0;
-		if(11 <= $generation && $generation <= 15){
-			$commission = 5;
-		}elseif(6 <= $generation && $generation <= 10){
-			$commission = 10;
-		}elseif(1 <= $generation && $generation <= 5){
-			$commission = 20;
-		}
-
-		$db->update("UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$id'");
-
-		$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
-
-		$db->update("UPDATE mlm_users SET gen_bal = gen_bal - '$commission' WHERE id = 1");
-
-		$generation = $generation-1;
-
-		if($generation == 0 || $id == 1){
-			calc_board_500($db);
-		}else{
-			calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, $generation);
-		}
+		get_gen_id($id, 0, [], $db);
 
 		
+	}
+
+	function get_gen_id($id, $count, $gotten_id, $db){
+		if($id == 0 || $count == 15){
+			cal_gen($gotten_id, $db);
+		}else{
+			$result = $db->select("SELECT parent_member FROM mlm_members WHERE id = '$id'");
+			if($result){
+				$parent_id = (mysqli_fetch_array($result))['parent_member'];
+				$gotten_id[] = $parent_id;
+				get_gen_id($parent_id, $count+1, $gotten_id, $db);
+			}else{
+				cal_gen($gotten_id, $db);
+			}
+		}
+	}
+
+	function cal_gen($gotten_id, $db){
+		$revese_id = array_reverse($gotten_id);
+
+		for($generation=0; $generation < count($revese_id); $generation++ ){
+			$id = $revese_id[$generation];
+			echo $id;
+			$commission = 0;
+			if(11 <= $generation && $generation <= 15){
+				$commission = 5;
+			}elseif(6 <= $generation && $generation <= 10){
+				$commission = 10;
+			}elseif(1 <= $generation && $generation <= 5){
+				$commission = 20;
+			}
+
+			$db->update("UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$id'");
+
+			$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
+
+			$db->update("UPDATE mlm_users SET gen_bal = gen_bal - '$commission' WHERE id = 1");
+
+		}
+
+		calc_board_500($db);
 	}
 
 	function calc_board_500($db){
