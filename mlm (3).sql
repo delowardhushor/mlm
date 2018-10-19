@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2018 at 08:36 AM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Oct 19, 2018 at 06:40 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,7 +95,7 @@ CREATE TABLE `mlm_packages` (
 --
 
 INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`) VALUES
-(1, 'Package A', '4000', 66, 'Test');
+(1, 'Package A', '2000', 54, 'Test');
 
 -- --------------------------------------------------------
 
@@ -107,15 +107,18 @@ CREATE TABLE `mlm_users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
-  `balance` int(11) NOT NULL
+  `balance` int(11) NOT NULL,
+  `gen_bal` int(11) NOT NULL DEFAULT '0',
+  `board_bal` int(11) NOT NULL DEFAULT '0',
+  `id_bal` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mlm_users`
 --
 
-INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`) VALUES
-(1, 'admin@mlm.com', 'cd92a26534dba48cd785cdcc0b3e6bd1', 0);
+INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`, `gen_bal`, `board_bal`, `id_bal`) VALUES
+(1, 'admin@mlm.com', 'cd92a26534dba48cd785cdcc0b3e6bd1', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables

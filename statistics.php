@@ -130,6 +130,32 @@
               </div>
             </div>
           </div>
+          <?php if(session::get('usertype') == 'member'){ 
+            $income = mysqli_fetch_array($db->select("SELECT * FROM mlm_income WHERE member = '$userid' "));
+          ?>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="alert alert-info">
+                <span>Earn by Generation <?php echo $income['by_generation']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-primary">
+                <span>Earn by Rank <?php echo $income['by_rank']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-danger">
+                <span>Earn by Board Commission <?php echo $income['by_board']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-success">
+                <span>Earn by Referance <?php echo $income['by_refer']; ?></span>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
           <div class="row">
             <div class="col-lg-6 col-md-12">
               <div class="card">
@@ -218,8 +244,8 @@
                   <div class="card-icon">
                     <i class="material-icons">money</i>
                   </div>
-                  <p class="card-category">Balance</p>
-                  <h3 class="card-title">৳ <?php if(isset($value_user_bal['balance'])){echo $value_user_bal['balance'];}else{echo 0; } ?></h3>
+                  <p class="card-category">Total Income</p>
+                  <h3 class="card-title">৳ <?php if(isset($total_all)){echo $total_all*1000;}else{echo 0; } ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -245,7 +271,28 @@
                 </div>
               </div>
             </div>
-
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="alert alert-info">
+                <span>Generation Balance <?php echo $value_user_bal['gen_bal']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-primary">
+                <span>Rank Balance <?php echo $value_user_bal['balance']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-danger">
+                <span>Board Commission Balance <?php echo $value_user_bal['board_bal']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="alert alert-success">
+                <span>ID Card Balance <?php echo $value_user_bal['id_bal']; ?></span>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">

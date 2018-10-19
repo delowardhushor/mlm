@@ -24,6 +24,8 @@
 			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
 			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
 
+			$db->update("UPDATE mlm_users SET balance = balance + 150,  gen_bal = gen_bal + 175, board_bal = board_bal + 300, id_bal = id_bal + 175");
+
 			if ($db->update($update_package) && $db->insert($sql)) {
 
 				$last_member = $db->link->insert_id;
@@ -62,7 +64,7 @@
 
 	function update_parent($id, $usertype , $package, $latest_id, $db){
 
-		$db->update("UPDATE mlm_users SET balance = balance + 15 WHERE id = 1 ");
+		//$db->update("UPDATE mlm_users SET balance = balance + 15 WHERE id = 1 ");
 
 		$sql = "SELECT * FROM mlm_members WHERE id = '$id' LIMIT 1 ";
 		$package_sql = "SELECT * FROM mlm_packages WHERE id = '$package' LIMIT 1 ";
@@ -94,15 +96,17 @@
 	      $db->update("UPDATE mlm_income SET by_refer = by_refer+200 WHERE member = '$id' ");
 
 	      if($db->update($update_sql)){
-	      	calc_rank($latest_id, $db);
+	      	calc_rank($id, $db);
 	      }
 	  	}
 	}
 
-	function calc_rank($latest_id, $db){
+	function calc_rank($id, $db){
 		$sql_silver = "SELECT id FROM mlm_members WHERE rank = 'Silver' ";
 		$result_silver = $db->select($sql_silver);
+		$numberOFRank = 0;
 		if($result_silver->num_rows > 0){
+			$numberOFRank = $numberOFRank+1;
 			$add_silver = 45/$result_silver->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_silver WHERE rank = 'Silver' ");
 
@@ -116,6 +120,7 @@
 		$sql_gold = "SELECT id FROM mlm_members WHERE rank = 'Gold' ";
 		$result_gold = $db->select($sql_gold);
 		if($result_gold->num_rows > 0){
+			$numberOFRank = $numberOFRank+1;
 			$add_gold = 45/$result_gold->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_gold WHERE rank = 'Gold' ");
 
@@ -128,6 +133,7 @@
 		$sql_platinum = "SELECT id FROM mlm_members WHERE rank = 'Platinum' ";
 		$result_platinum = $db->select($sql_platinum);
 		if($result_platinum->num_rows > 0){
+			$numberOFRank = $numberOFRank+1;
 			$add_platinum = 45/$result_platinum->num_rows;
 			$db->update("UPDATE mlm_members SET balance = balance + $add_platinum WHERE rank = 'Platinum' ");
 
@@ -137,39 +143,40 @@
             }
 		}
 
+		$lessRankBalance = $numberOFRank*45;
+
+		$db->Update("UPDATE mlm_users SET balance = balance - $lessRankBalance WHERE id = 1 ");
+
 		//print_r($value);
-		calc_generation($latest_id, $db);
+		calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, 15);
 	}
 
-	function calc_generation($id, $db){
+	function calc_generation($id, $db, $generation){
 
-		$generation = 15;
-
-		for($i = $id; $i > 0; $i--){
-			$commission = 0;
-			if(11 <= $generation && $generation <= 15){
-				$commission = 20;
-			}elseif(6 <= $generation && $generation <= 10){
-				$commission = 10;
-			}elseif(1 <= $generation && $generation <= 5){
-				$commission = 5;
-			}
-
-			$generation_sql = "UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$i'";
-
-			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-
-				$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$i' ");
-
-				$generation = $generation-1;
-			}
-
-			if($generation == 0){
-				break;
-			}
+		$commission = 0;
+		if(11 <= $generation && $generation <= 15){
+			$commission = 5;
+		}elseif(6 <= $generation && $generation <= 10){
+			$commission = 10;
+		}elseif(1 <= $generation && $generation <= 5){
+			$commission = 20;
 		}
 
-		calc_board_500($db);
+		$db->update("UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$id'");
+
+		$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
+
+		$db->update("UPDATE mlm_users SET gen_bal = gen_bal - '$commission' WHERE id = 1");
+
+		$generation = $generation-1;
+
+		if($generation == 0 || $id == 1){
+			calc_board_500($db);
+		}else{
+			calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, $generation);
+		}
+
+		
 	}
 
 	function calc_board_500($db){
@@ -182,6 +189,7 @@
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 500, got500 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 500 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 500 WHERE id = 1");
 				calc_board_1000($db);
 			}
 		}
@@ -196,6 +204,7 @@
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 1000, got1000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 1000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 1000 WHERE id = 1");
 				calc_board_2000($db);
 			}
 		}
@@ -210,6 +219,7 @@
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 2000, got2000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 2000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 2000 WHERE id = 1");
 				calc_board_3000($db);
 			}
 		}	
@@ -221,9 +231,10 @@
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
 		if(!is_float($id)){
-			$generation_sql = "UPDATE mlm_members SET balance = balance + 3000, got3000 = '1' WHERE id = '$id' ";
-			$db->update("UPDATE mlm_income SET by_board = by_board + 3000 WHERE member = '$id' ");
+			$generation_sql = "UPDATE mlm_members SET balance = balance + 5000, got3000 = '1' WHERE id = '$id' ";
+			$db->update("UPDATE mlm_income SET by_board = by_board + 5000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 5000 WHERE id = 1");
 				calc_board_4000($db);
 			}
 		}
@@ -235,9 +246,10 @@
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
 		if(!is_float($id)){
-			$generation_sql = "UPDATE mlm_members SET balance = balance + 4000, got4000 = '1' WHERE id = '$id' ";
-			$db->update("UPDATE mlm_income SET by_board = by_board + 4000 WHERE member = '$id' ");
+			$generation_sql = "UPDATE mlm_members SET balance = balance + 10000, got4000 = '1' WHERE id = '$id' ";
+			$db->update("UPDATE mlm_income SET by_board = by_board + 10000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 10000 WHERE id = 1");
 				calc_board_5000($db);
 			}
 		}
@@ -249,9 +261,10 @@
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
 		if(!is_float($id)){
-			$generation_sql = "UPDATE mlm_members SET balance = balance + 5000, got5000 = '1' WHERE id = '$id' ";
-			$db->update("UPDATE mlm_income SET by_board = by_board + 5000 WHERE member = '$id' ");
+			$generation_sql = "UPDATE mlm_members SET balance = balance + 20000, got5000 = '1' WHERE id = '$id' ";
+			$db->update("UPDATE mlm_income SET by_board = by_board + 20000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 20000 WHERE id = 1");
 				calc_board_6000($db);
 			}
 		}
@@ -263,25 +276,27 @@
 		$total_members = $result->num_rows;
 		$id = ($total_members-1)/5;
 		if(!is_float($id)){
-			$generation_sql = "UPDATE mlm_members SET balance = balance + 6000, got6000 = '1' WHERE id = '$id' ";
-			$db->update("UPDATE mlm_income SET by_board = by_board + 6000 WHERE member = '$id' ");
+			$generation_sql = "UPDATE mlm_members SET balance = balance + 50000, got6000 = '1' WHERE id = '$id' ";
+			$db->update("UPDATE mlm_income SET by_board = by_board + 50000 WHERE member = '$id' ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				calc_board_7000($db);
-			}
-		}
-	}
-
-	function calc_board_7000($db){
-		$sql = "SELECT * FROM mlm_members WHERE got6000 = '1' ORDER BY id ASC";
-		$result = $db->select($sql);
-		$total_members = $result->num_rows;
-		$id = ($total_members-1)/5;
-		if(!is_float($id)){
-			$generation_sql = "UPDATE mlm_members SET balance = balance + 7000, got7000 = '1' WHERE id = '$id' ";
-			$db->update("UPDATE mlm_income SET by_board = by_board + 7000 WHERE member = '$id' ");
-			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 50000 WHERE id = 1");
 				header('Location:../member.php?success=Member Added');
 			}
 		}
 	}
+
+	// function calc_board_7000($db){
+	// 	$sql = "SELECT * FROM mlm_members WHERE got6000 = '1' ORDER BY id ASC";
+	// 	$result = $db->select($sql);
+	// 	$total_members = $result->num_rows;
+	// 	$id = ($total_members-1)/5;
+	// 	if(!is_float($id)){
+	// 		$generation_sql = "UPDATE mlm_members SET balance = balance + 7000, got7000 = '1' WHERE id = '$id' ";
+	// 		$db->update("UPDATE mlm_income SET by_board = by_board + 7000 WHERE member = '$id' ");
+	// 		if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
+	// 			$db->update("UPDATE mlm_Users SET board_bal = board_bal - 500 WHERE id = 1");
+	// 			header('Location:../member.php?success=Member Added');
+	// 		}
+	// 	}
+	// }
 ?>
