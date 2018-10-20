@@ -1,9 +1,10 @@
 <?php include "./inc/head.php"; ?>
 <?php 
-  if(!isset($_GET['member']) || $_GET['member'] == ''){
+  if(!isset($_GET['member']) || $_GET['member'] == '' || !isset($_GET['mode']) || $_GET['mode'] == '' ){
     header('Location:statistics.php');
   }else{
     $member = $_GET['member'];
+    $mode = $_GET['mode'];
   }
   if(session::get('usertype') !== 'admin' && session::get('userid') !== $member  ){
     header('Location:statistics.php');
@@ -18,9 +19,9 @@
   }
 
   $perpage = 50;
-    $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_cashout FROM mlm_cashout WHERE member = '$member'")))['total_cashout']/$perpage);  
+    $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_cashout FROM mlm_cashout WHERE member = '$member' AND mode = '$mode' ")))['total_cashout']/$perpage);  
 
-  $member_details = mysqli_fetch_array($db->select("SELECT name,balance FROM mlm_members WHERE id = '$member'"));
+  $member_details = mysqli_fetch_array($db->select("SELECT name,balance FROM mlm_members WHERE id = '$member' "));
 
 ?>
 <?php include "./functions/cash.php"; ?>
@@ -37,37 +38,42 @@
                     </div>
                   </div>
                 </div>
+                <?php if(session::get('usertype') == 'member'){ ?>
                 <div class='row'>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Sent Mobile Number</label>
-                      <input type="text" required="1" name="sent_mobile" class="form-control">
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Transaction ID</label>
-                      <input type="text" required="1" name="transaction_number" class="form-control">
-                    </div>
-                  </div>
-                  
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="bmd-label-floating">Cashout Amount</label>
                       <input type="text" required="1" name="amount" class="form-control">
                     </div>
                   </div>
+                  <?php if($mode == 'in'){ ?>
                   <div class="col-md-3">
-                    <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" class="btn btn-primary ">Cashout Now</button>
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Sent Mobile</label>
+                      <input type="text" required="1" name="mobile_from" class="form-control">
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Transaction ID</label>
+                      <input type="text" required="1" name="tan_id" class="form-control">
+                    </div>
+                  </div>
+                  <?php }?>
+                  
+                  
+                  <div class="col-md-3">
+                    <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" class="btn btn-primary "><??>Sent Cash <?php echo $mode; ?> Request</button>
                   </div>
                 </div>
+                <?php } ?>
               </form>
             </div>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Cash out History</h4>
+                  <h4 class="card-title ">Cash <?php echo $mode; ?> History</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -83,13 +89,16 @@
                           Transaction ID
                         </th>
                         <th>
-                          Balance
+                          Status
+                        </th>
+                        <th>
+                          Amount
                         </th>
                       </thead>
                       <tbody>
                         <?php 
                           $offset = ($page-1)*$perpage;
-                          $sql = "SELECT * FROM mlm_cashout WHERE member = '$member' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
+                          $sql = "SELECT * FROM mlm_cashout WHERE member = '$member' AND mode = '$mode' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
                           $result = $db->select($sql);
                           if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
@@ -99,10 +108,13 @@
                             <?php echo $format->formatDate($row['date']); ?>
                           </td>
                           <td >
-                            <?php echo $row['sent_mobile']; ?>
+                            <?php echo $row['mobile_from']; ?>
                           </td>
                           <td >
-                            <?php echo $row['transaction_number']; ?>
+                            <?php echo $row['tan_id']; ?>
+                          </td>
+                          <td >
+                            <?php echo $row['approve']; ?>
                           </td>
                           <td class="text-primary">
                             <?php echo $row['amount']; ?>

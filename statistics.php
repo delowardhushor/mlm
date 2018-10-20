@@ -31,6 +31,10 @@
     $total_all = $result_all->num_rows;
   }
 
+  function get_gen(){
+
+  }
+
   $offset = ($page-1)*$perpage;
   $sql_under = "SELECT * FROM mlm_members WHERE id > '$userid' ORDER BY id ASC LIMIT $perpage  OFFSET $offset ";
   $result_under = $db->select($sql_under);
@@ -108,7 +112,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">local_offer</i> Number of member after your genaration
+                    <i class="material-icons">local_offer</i> Number of member under your
                   </div>
                 </div>
               </div>

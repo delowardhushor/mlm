@@ -47,6 +47,18 @@
               <p>Members</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="request.php?mode=in">
+              <i class="material-icons">money</i>
+              <p>Cash In Request</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="request.php?mode=out">
+              <i class="material-icons">money</i>
+              <p>Cash Out Request</p>
+            </a>
+          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
             <a class="nav-link" href="packages.php">
               <i class="material-icons">bubble_chart</i>
@@ -59,6 +71,18 @@
             <a class="nav-link" href="member.php">
               <i class="material-icons">person_add</i>
               <p>Add Member</p>
+            </a>
+          </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="cash.php?mode=in&member=<?php echo session::get('userid'); ?>">
+              <i class="material-icons">money</i>
+              <p>Cash In</p>
+            </a>
+          </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="cash.php?mode=out&member=<?php echo session::get('userid'); ?>">
+              <i class="material-icons">money</i>
+              <p>Cash Out</p>
             </a>
           </li>
           <?php }?>
