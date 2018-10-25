@@ -47,6 +47,12 @@
               <p>Members</p>
             </a>
           </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'bestlist.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="bestlist.php">
+              <i class="material-icons">group</i>
+              <p>Best Members</p>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="request.php?mode=in">
               <i class="material-icons">money</i>

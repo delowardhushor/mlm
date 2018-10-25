@@ -15,9 +15,9 @@
     $db->update("UPDATE mlm_cashout SET amount = '$amount', mobile_from = '$mobile_from', tan_id = '$tan_id' , approve = 'approved' WHERE id = '$id' ");
 
     if($mode == 'in'){
-      $db->update("UPDATE mlm_members SET balance = balance + '$amount' WHERE id = '$member'");
+      $db->update("UPDATE mlm_members SET tan_bal = tan_bal + '$amount' WHERE id = '$member'");
     }elseif($mode == 'out'){
-      $db->update("UPDATE mlm_members SET balance = balance - '$amount' WHERE id = '$member'");
+      $db->update("UPDATE mlm_members SET tan_bal = tan_bal - '$amount' WHERE id = '$member'");
     }
 
     header("Location:members.php?success=Request Confirmed");

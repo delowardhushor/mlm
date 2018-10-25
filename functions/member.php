@@ -9,6 +9,12 @@
 		$pass = md5($_POST['pass']);
 		$usertype = $_POST['usertype'];
 
+		$chkUser = $db->select("SELECT count(*) FROM mlm_members WHERE email = '$email'");
+		if(mysqli_fetch_array($chkUser)['count(*)'] > 0){
+			Header('Location:../member.php?error=Username Exist');
+			die();
+		}
+
 		$sql_member_blance = "SELECT * FROM mlm_members WHERE id = '$parent_member' LIMIT 1 ";
 		$package_sql_balance = "SELECT * FROM mlm_packages WHERE id = '$package' LIMIT 1 ";
 
@@ -40,7 +46,7 @@
 				Header('Location:../member.php?error=Member Not Added');
 			} 
 
-		}elseif($row_mem_bal['balance'] >= $row_pak_price['price']){
+		}elseif($row_mem_bal['tan_bal'] >= $row_pak_price['price']){
 			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
 			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
 
@@ -175,13 +181,12 @@
 
 		for($generation=0; $generation < count($revese_id); $generation++ ){
 			$id = $revese_id[$generation];
-			echo $id;
 			$commission = 0;
-			if(11 <= $generation && $generation <= 15){
+			if(10 <= $generation && $generation <= 14){
 				$commission = 5;
-			}elseif(6 <= $generation && $generation <= 10){
+			}elseif(5 <= $generation && $generation <= 9){
 				$commission = 10;
-			}elseif(1 <= $generation && $generation <= 5){
+			}elseif(0 <= $generation && $generation <= 4){
 				$commission = 20;
 			}
 

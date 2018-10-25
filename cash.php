@@ -21,7 +21,7 @@
   $perpage = 50;
     $total_page = ceil((mysqli_fetch_array($db->select("SELECT COUNT(id) AS total_cashout FROM mlm_cashout WHERE member = '$member' AND mode = '$mode' ")))['total_cashout']/$perpage);  
 
-  $member_details = mysqli_fetch_array($db->select("SELECT name,balance FROM mlm_members WHERE id = '$member' "));
+  $member_details = mysqli_fetch_array($db->select("SELECT name,balance,tan_bal FROM mlm_members WHERE id = '$member' "));
 
 ?>
 <?php include "./functions/cash.php"; ?>
@@ -29,47 +29,85 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
-              <form action="" method="post">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="alert alert-info">
-                      <span><?php echo $member_details['name']; ?>'s Current Balance is <?php echo $member_details['balance']; ?></span>
-                    </div>
-                  </div>
-                </div>
-                <?php if(session::get('usertype') == 'member'){ ?>
-                <div class='row'>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Cashout Amount</label>
-                      <input type="text" required="1" name="amount" class="form-control">
-                    </div>
-                  </div>
-                  <?php if($mode == 'in'){ ?>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Sent Mobile</label>
-                      <input type="text" required="1" name="mobile_from" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Transaction ID</label>
-                      <input type="text" required="1" name="tan_id" class="form-control">
-                    </div>
-                  </div>
-                  <?php }?>
-                  
-                  
-                  <div class="col-md-3">
-                    <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" class="btn btn-primary "><??>Sent Cash <?php echo $mode; ?> Request</button>
-                  </div>
-                </div>
-                <?php } ?>
-              </form>
+            <div class="col-md-6">
+              <div class="alert alert-info">
+                <span><?php echo $member_details['name']; ?>'s Current Earned Balance is <?php echo $member_details['balance']; ?></span>
+              </div>
             </div>
+            <div class="col-md-6">
+              <div class="alert alert-info">
+                <span><?php echo $member_details['name']; ?>'s Current Transferable Balance is <?php echo $member_details['tan_bal']; ?></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Cash <?php echo $mode;?> Request</h4>
+                </div>
+                <div class="card-body">
+                  <form action="" method="post">
+                  <div class='row'>             
+                    <?php if(session::get('usertype') == 'member'){ ?>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cashout Amount</label>
+                          <input type="text" required="1" name="amount" class="form-control">
+                        </div>
+                      </div>
+                      <?php if($mode == 'in'){ ?>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Sent Mobile</label>
+                          <input type="text" required="1" name="mobile_from" class="form-control">
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Transaction ID</label>
+                          <input type="text" required="1" name="tan_id" class="form-control">
+                        </div>
+                      </div>
+                      <?php }?>           
+                      <div class="col-md-3">
+                        <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" name="cashRequest" class="btn btn-primary "><??>Sent Cash <?php echo $mode; ?> Request</button>
+                      </div>
+                      <?php } ?>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php if(session::get('usertype') == 'member'){ ?>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Balance Transfer</h4>
+                </div>
+                <div class="card-body">
+                  <form action="" method="post">
+                    <div class='row'>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Transfer Amount</label>
+                          <input type="text" required="1" name="amount" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" name="cashTan" class="btn btn-primary ">Transfer</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
+          <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -130,6 +168,8 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-12">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">

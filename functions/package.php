@@ -6,9 +6,10 @@
 		$stock = $_POST['stock'];
 		$details = $_POST['details'];
 		$mode = $_POST['mode'];
+		$cost = $_POST['cost'];
 		
 		if($mode === 'Add'){
-			$insert = "INSERT INTO mlm_packages (name, price, stock, details) VALUES ('$name', '$price', '$stock', '$details')";
+			$insert = "INSERT INTO mlm_packages (name, price, stock, details, cost) VALUES ('$name', '$price', '$stock', '$details', '$cost')";
 			$result = $db->insert($insert);
 		}elseif($mode === 'Update'){
 			$id = $_POST['id'];
@@ -16,7 +17,8 @@
 						name='$name', 
 						price='$price', 
 						stock='$stock', 
-						details='$details'
+						details='$details',
+						cost = '$cost'
 						WHERE id= '$id' ";
 			$result = $db->update($update);
 		}

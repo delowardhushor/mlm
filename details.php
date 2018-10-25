@@ -1,10 +1,31 @@
 <?php include "./inc/head.php"; ?>
 <?php
 
-  if(isset($_GET['details']) && $_GET['details'] !== ''){
+  if(isset($_GET['details']) && $_GET['details'] !== '' && session::get('usertype') == 'admin'){
     $userid = $_GET['details'];
   }else{
     header('Location:members.php');
+  }
+
+  if(isset($_GET['asbest']) && session::get('usertype') == 'admin'){
+    if($db->Update("UPDATE mlm_members SET cat = 1 WHERE id = '$userid'")){
+        header('Location:details.php?details='.$userid.'&success=Marked as Best');
+    }
+  }
+
+  if(isset($_GET['asnot']) && session::get('usertype') == 'admin'){
+    if($db->Update("UPDATE mlm_members SET cat = 0 WHERE id = '$userid'")){
+        header('Location:details.php?details='.$userid.'&success=Remove from Best');
+    }
+  }
+
+  if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get('usertype') == 'admin'){
+      $pass = md5($_POST['pass']);
+      if($db->Update("UPDATE mlm_members SET pass = '$pass' WHERE id = '$userid'")){
+          header('Location:details.php?details='.$userid.'&success=Password Updated');
+      }else{
+        header('Location:details.php?details='.$userid.'&error=Password Not Updated');
+      }
   }
 
   if(isset($_GET['page'])){
@@ -57,10 +78,34 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-5">
               <div class="alert alert-info">
                 <span><?php echo $value_user['name']; ?>'s Current Rank is <?php echo $value_user['rank']; ?></span>
               </div>
+            </div>
+            <div class="col-md-2">
+              <?php if($value_user['cat'] == 0){ ?>
+                  <a type="submit" href="?details=<?php echo $userid;?>&asbest=<?php echo $userid;?>" class="btn btn-success pull-right">Mark as Best</a>
+              <?php }else{?>
+                  <a type="submit" href="?details=<?php echo $userid;?>&asnot=<?php echo $userid;?>" class="btn btn-danger pull-right">Romeve From Best</a>
+              <?php }?>
+            </div>
+            <div class="col-md-5">
+              <?php if(session::get('usertype') == 'admin'){ ?>
+              <form action="" method="post">
+                <div class='row'>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Update Password</label>
+                      <input type="password" required="1" name="pass" class="form-control">
+                    </div>
+                  </div>                 
+                  <div class="col-md-3">
+                    <button onclick="return confirm('Are You Sure Update This Password? It can not be undone!')" type="submit" class="btn btn-primary pull-right">Update</button>
+                  </div>
+                </div>
+              </form>
+              <?php } ?>
             </div>
           </div>
           <div class="row">

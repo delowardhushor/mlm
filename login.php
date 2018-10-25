@@ -90,17 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
-    <div class="d-flex justify-content-around">
-        <!-- <div>
+    <!-- <div class="d-flex justify-content-around">
+        <div>
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
                 <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
             </div>
-        </div> -->
+        </div>
         <div>
             <a href="forgetpassword.php">Forgot password?</a>
         </div>
-    </div>
+    </div> -->
 </form>
 </div>
 <!-- Default form login -->

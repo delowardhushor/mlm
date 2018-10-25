@@ -23,8 +23,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Email</label>
-                          <input type="email" name="email" required="1"  class="form-control">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" name="email" required="1"  class="form-control">
                         </div>
                       </div>
                     </div>

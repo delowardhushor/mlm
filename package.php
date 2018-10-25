@@ -59,6 +59,14 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Package Cost</label>
+                          <input type="text" name="cost" value="<?php if($mode === 'Update'){ echo $value['cost']; } ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
                     <input style="display: none" name="mode" value="<?php echo $_GET['mode']; ?>">
                     <?php
                       if($_GET['mode'] === 'Update' && is_numeric($_GET['id']) === true ){

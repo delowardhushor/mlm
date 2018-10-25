@@ -34,6 +34,9 @@
                           Details
                         </th>
                         <th>
+                          Package Cost
+                        </th>
+                        <th>
                           Action
                         </th>
                       </thead>
@@ -56,6 +59,9 @@
                           </td>
                           <td>
                             <?php echo $row['details']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['cost']; ?>
                           </td>
                           <td>
                             <a href="package.php?mode=Update&id=<?php echo $row['id']; ?>" class="btn btn-primary "><i class="material-icons">border_color</i></a>
