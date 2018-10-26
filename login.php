@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p class="h4 mb-4">Sign in</p>
 
     <!-- Email -->
-    <input type="email" required="1" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+    <input type="text" required="1" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username">
 
     <!-- Password -->
     <input type="password" required="1" name='pass' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">

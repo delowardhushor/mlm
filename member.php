@@ -36,6 +36,14 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Phone Number</label>
+                          <input type="text" name="phone" required="1" class="form-control">
+                        </div>
+                      </div>
+                    </div>
                     <?php if(session::get('usertype') == 'admin'){ ?>
                     <div class="row">
                       <div class="col-md-12">

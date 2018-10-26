@@ -43,7 +43,7 @@
   }
   
 
-  $sql_refer = "SELECT * FROM mlm_members WHERE parent_member = '$userid' ";
+  $sql_refer = "SELECT name FROM mlm_members WHERE parent_member = '$userid' ";
   $result_refer = $db->select($sql_refer);
   if($result_refer){
     $total_refer = $result_refer->num_rows;
@@ -61,9 +61,42 @@
         <div class="container-fluid">
           <?php if(session::get('usertype') == 'member'){ ?>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
               <div class="alert alert-info">
-                <span><?php echo $value_user['name']; ?>, Your Current Rank is <?php echo $value_user['rank']; ?></span>
+                <span>User ID<br><?php echo $value_user['id']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="alert alert-info">
+                <span>Name<br><?php echo $value_user['name']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="alert alert-info">
+                <span>Joined on<br><?php echo $format->formatDate($value_user['joined']); ?></span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="alert alert-info">
+                <span>Phone Number<br><?php echo $value_user['phone']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="alert alert-info">
+                <span>Rank<br><?php echo $value_user['rank']; ?></span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="alert alert-info">
+                <span>Reference By,<br>
+                  <?php 
+                    $parent_member_id = $value_user['parent_member'];
+                    $parent_member_name = $db->select("SELECT name FROM mlm_members WHERE id = '$parent_member_id' LIMIT 1"); 
+                    if($parent_member_name){
+                      echo (mysqli_fetch_array($parent_member_name))['name'];
+                    }
+                  ?>
+                </span>
               </div>
             </div>
           </div>
@@ -87,6 +120,22 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Transferable Balance</p>
+                  <h3 class="card-title"><?php echo $value_user['tan_bal']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">local_offer</i> Number of member under your
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
                     <i class="material-icons">group</i>
@@ -101,22 +150,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">people</i>
-                  </div>
-                  <p class="card-category">Under You</p>
-                  <h3 class="card-title"><?php if(isset($total_under)){echo $total_under;}else{echo 0;} ?></h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">local_offer</i> Number of member under your
-                  </div>
-                </div>
-              </div>
-            </div>
+            
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
@@ -164,6 +198,35 @@
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-info">
+                  <h4 class="card-title">Rank Commission Provided by Company last One Month</h4>
+                  <p class="card-category"></p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Silver</th>
+                      <th>Gold</th>
+                      <th>Platinum</th>
+                    </thead>
+                    <tbody>
+                      <?php
+                        $start = date('Y-m-d',  strtotime("+1 day"));
+                        $end = date("Y-m-d",strtotime("-1 month"));
+                        $rank_commision = mysqli_fetch_array($db->select("SELECT sum(sil), sum(gol), sum(pla) FROM mlm_rank WHERE date BETWEEN '$end' AND '$start'"));
+                      ?>
+                      <tr>
+                        <td><?php echo $rank_commision['sum(sil)']; ?></td>
+                        <td><?php echo $rank_commision['sum(gol)']; ?></td>
+                        <td><?php echo $rank_commision['sum(pla)']; ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-info">
                   <h4 class="card-title">List of Member Under You</h4>
                   <p class="card-category"></p>
                 </div>
@@ -208,7 +271,7 @@
                   </ul>
                 </nav>
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-success">
@@ -219,8 +282,8 @@
                   <table class="table table-hover">
                     <thead class="text-warning">
                       <th>Name</th>
-                      <th>Balance</th>
-                      <th>Rank</th>
+                      <!-- <th>Balance</th>
+                      <th>Rank</th> -->
                     </thead>
                     <tbody>
                       <?php
@@ -229,8 +292,8 @@
                       ?>
                       <tr>
                         <td><?php echo $refer_member['name']; ?></td>
-                        <td><?php echo $refer_member['balance']; ?></td>
-                        <td><?php echo $refer_member['rank']; ?></td>
+                        <!-- <td><?php echo $refer_member['balance']; ?></td>
+                        <td><?php echo $refer_member['rank']; ?></td> -->
                       </tr>
                       <?php } } ?>
                     </tbody>

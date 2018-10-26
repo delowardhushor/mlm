@@ -6,6 +6,7 @@
 		$parent_member = $_POST['parent_member'];
 		$package = $_POST['package'];
 		$email = $_POST['email'];
+		$phone = $_POST['phone'];
 		$pass = md5($_POST['pass']);
 		$usertype = $_POST['usertype'];
 
@@ -28,7 +29,7 @@
 		if($usertype == 'admin'){
 
 			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
-			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
+			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package, phone) VALUES ('$name', '$parent_member', '$email', '$pass', '$package', '$phone')";
 
 			$db->update("UPDATE mlm_users SET balance = balance + 150,  gen_bal = gen_bal + 175, board_bal = board_bal + 300, id_bal = id_bal + 175");
 
@@ -48,7 +49,7 @@
 
 		}elseif($row_mem_bal['tan_bal'] >= $row_pak_price['price']){
 			$update_package = "UPDATE mlm_packages set stock = stock -1 WHERE id = '$package' ";
-			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package) VALUES ('$name', '$parent_member', '$email', '$pass', '$package')";
+			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package, phone) VALUES ('$name', '$parent_member', '$email', '$pass', '$package', '$phone')";
 
 			if ($db->update($update_package) && $db->insert($sql)) {
 
@@ -96,7 +97,7 @@
 	      $update_sql = "UPDATE mlm_members SET balance = balance+200,  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
 
 	      if($usertype == 'member'){
-	      	$update_sql = "UPDATE mlm_members SET balance = balance+200-'$price',  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
+	      	$update_sql = "UPDATE mlm_members SET balance = balance+200, tan_bal = tan_bal-'$price',  referred = '$referred' , rank = '$rank' WHERE id = '$id' ";
 	      }
 
 	      $db->update("UPDATE mlm_income SET by_refer = by_refer+200 WHERE member = '$id' ");
@@ -119,6 +120,7 @@
             while($row_silver = $result_silver->fetch_assoc()) {
             	$silver_id = $row_silver['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_silver WHERE member = '$silver_id' ");
+            	$db->insert("INSERT INTO mlm_rank (sil) VALUES ('$add_silver')");
             }
 		}
 		
@@ -133,6 +135,7 @@
 			while($row_gold = $result_gold->fetch_assoc()) {
             	$gold_id = $row_gold['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_gold WHERE member = '$gold_id' ");
+            	$db->insert("INSERT INTO mlm_rank (gol) VALUES ('$add_gold')");
             }
 		}
 
@@ -146,6 +149,7 @@
 			while($row_platinum = $result_platinum->fetch_assoc()) {
             	$platinum_id = $row_platinum['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_platinum WHERE member = '$platinum_id' ");
+            	$db->insert("INSERT INTO mlm_rank (pla) VALUES ('$add_platinum')");
             }
 		}
 

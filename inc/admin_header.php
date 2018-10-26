@@ -79,13 +79,13 @@
               <p>Add Member</p>
             </a>
           </li>
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
+          <li class="nav-item">
             <a class="nav-link" href="cash.php?mode=in&member=<?php echo session::get('userid'); ?>">
               <i class="material-icons">money</i>
               <p>Cash In</p>
             </a>
           </li>
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
+          <li class="nav-item">
             <a class="nav-link" href="cash.php?mode=out&member=<?php echo session::get('userid'); ?>">
               <i class="material-icons">money</i>
               <p>Cash Out</p>

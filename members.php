@@ -70,7 +70,10 @@
                           Username
                         </th>
                         <th>
-                          Balance
+                          Earned Balance
+                        </th>
+                        <th>
+                          Transferable Balance
                         </th>
                         <th>
                           Referred
@@ -106,6 +109,9 @@
                           </td>
                           <td class="text-primary">
                             <?php echo $row['balance']; ?>
+                          </td>
+                          <td class="text-primary">
+                            <?php echo $row['tan_bal']; ?>
                           </td>
                           <td>
                             <?php echo $row['referred']; ?>
