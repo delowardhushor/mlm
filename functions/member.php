@@ -35,6 +35,9 @@
 
 			if ($db->update($update_package) && $db->insert($sql)) {
 
+				$package_income = $row_pak_price['price'] + $row_pak_price['cost'] - 1000;
+				$db->update("UPDATE mlm_users SET account = account + '$package_income' WHERE id = 1");
+
 				$last_member = $db->link->insert_id;
 
 				$db->insert("INSERT INTO mlm_income (member) VALUES ('$last_member')");
@@ -52,6 +55,9 @@
 			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package, phone) VALUES ('$name', '$parent_member', '$email', '$pass', '$package', '$phone')";
 
 			if ($db->update($update_package) && $db->insert($sql)) {
+
+				$package_income = $row_pak_price['price'] - $row_pak_price['cost'] - 1000;
+				$db->update("UPDATE mlm_users SET account = account + '$package_income' WHERE id = 1");
 
 				$last_member = $db->link->insert_id;
 

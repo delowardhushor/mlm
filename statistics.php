@@ -311,6 +311,23 @@
                   <div class="card-icon">
                     <i class="material-icons">money</i>
                   </div>
+                  <p class="card-category">Account Balance</p>
+                  <h3 class="card-title">৳ <?php echo $value_user_bal['account']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
                   <p class="card-category">Total Income</p>
                   <h3 class="card-title">৳ <?php if(isset($total_all)){echo $total_all*1000;}else{echo 0; } ?></h3>
                 </div>
@@ -321,7 +338,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
@@ -334,6 +351,23 @@
                 <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons">update</i> Total number of members
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Cumulated Vat</p>
+                  <h3 class="card-title">৳ <?php echo $value_user_bal['vat']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
                   </div>
                 </div>
               </div>
