@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2018 at 08:38 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Oct 27, 2018 at 06:24 AM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,6 +54,13 @@ CREATE TABLE `mlm_income` (
   `by_board` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `mlm_income`
+--
+
+INSERT INTO `mlm_income` (`id`, `member`, `by_refer`, `by_generation`, `by_rank`, `by_board`) VALUES
+(2, 2, 0, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -84,6 +91,13 @@ CREATE TABLE `mlm_members` (
   `got7000` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `mlm_members`
+--
+
+INSERT INTO `mlm_members` (`id`, `joined`, `name`, `phone`, `email`, `pass`, `package`, `balance`, `tan_bal`, `rank`, `cat`, `parent_member`, `referred`, `got500`, `got1000`, `got2000`, `got3000`, `got4000`, `got5000`, `got6000`, `got7000`) VALUES
+(2, '2018-10-27 03:36:27', 'Delowar', '13216315', 'delowar', 'a01610228fe998f515a72dd730294d87', 1, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +112,13 @@ CREATE TABLE `mlm_packages` (
   `details` text NOT NULL,
   `cost` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mlm_packages`
+--
+
+INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`, `cost`) VALUES
+(1, 'Package A', '3000', 18, '', 1000);
 
 -- --------------------------------------------------------
 
@@ -126,15 +147,17 @@ CREATE TABLE `mlm_users` (
   `balance` int(11) NOT NULL,
   `gen_bal` int(11) NOT NULL DEFAULT '0',
   `board_bal` int(11) NOT NULL DEFAULT '0',
-  `id_bal` int(11) NOT NULL DEFAULT '0'
+  `id_bal` int(11) NOT NULL DEFAULT '0',
+  `account` int(11) NOT NULL DEFAULT '0',
+  `vat` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mlm_users`
 --
 
-INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`, `gen_bal`, `board_bal`, `id_bal`) VALUES
-(1, 'admin', 'cd92a26534dba48cd785cdcc0b3e6bd1', 0, 0, 0, 0);
+INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`, `gen_bal`, `board_bal`, `id_bal`, `account`, `vat`) VALUES
+(1, 'admin', 'cd92a26534dba48cd785cdcc0b3e6bd1', 150, 175, 300, 175, 3000, 0);
 
 --
 -- Indexes for dumped tables
@@ -190,19 +213,19 @@ ALTER TABLE `mlm_cashout`
 -- AUTO_INCREMENT for table `mlm_income`
 --
 ALTER TABLE `mlm_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mlm_members`
 --
 ALTER TABLE `mlm_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mlm_packages`
 --
 ALTER TABLE `mlm_packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mlm_rank`

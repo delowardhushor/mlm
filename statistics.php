@@ -60,7 +60,7 @@
       <div class="content">
         <div class="container-fluid">
           <?php if(session::get('usertype') == 'member'){ ?>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-2">
               <div class="alert alert-info">
                 <span>User ID<br><?php echo $value_user['id']; ?></span>
@@ -99,7 +99,7 @@
                 </span>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
@@ -109,12 +109,6 @@
                   </div>
                   <p class="card-category">Balance</p>
                   <h3 class="card-title">৳ <?php echo $value_user['balance']; ?></h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">money</i>
-                    Add More Member to Get More...
-                  </div>
                 </div>
               </div>
             </div>
@@ -127,11 +121,6 @@
                   <p class="card-category">Transferable Balance</p>
                   <h3 class="card-title"><?php echo $value_user['tan_bal']; ?></h3>
                 </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">local_offer</i> Number of member under your
-                  </div>
-                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -142,11 +131,6 @@
                   </div>
                   <p class="card-category">Reference</p>
                   <h3 class="card-title"><?php if(isset($total_refer)){echo $total_refer;}else{echo 0;} ?></h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Number of your referred member 
-                  </div>
                 </div>
               </div>
             </div>
@@ -160,18 +144,82 @@
                   <p class="card-category">Total Member</p>
                   <h3 class="card-title"><?php  if(isset($total_all)){echo $total_all;}else{echo 0; } ?></h3>
                 </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Total number of members
-                  </div>
-                </div>
               </div>
             </div>
           </div>
-          <?php if(session::get('usertype') == 'member'){ 
+          <?php
             $income = mysqli_fetch_array($db->select("SELECT * FROM mlm_income WHERE member = '$userid' "));
           ?>
           <div class="row">
+            <div class="col-md-6 col-sm-12 col-6">
+              <div class="statprofile">
+                <table class="table table-hover">
+                  <tr>
+                    <td>Earn By Generation</td>
+                    <td><?php echo $income['by_generation']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Earn By Rank</td>
+                    <td><?php echo $income['by_rank']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Earn By Board Commission</td>
+                    <td><?php echo $income['by_board']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Earn By Reference</td>
+                    <td><?php echo $income['by_refer']; ?></td>
+                  </tr>
+                </table>
+                <div class="alert alert-success">
+                  Transferable Balance: <?php echo $value_user['tan_bal']; ?>
+                </div>
+                <div class="alert alert-success">
+                  Total Balance: <?php echo $value_user['balance']; ?>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-6">
+              <div class="statprofile">
+                <i style="font-size: 250px;" class="fa fa-user fa-5x"></i>
+                <table class="table table-hover">
+                  <tr>
+                    <td>User ID</td>
+                    <td><?php echo $value_user['id']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Joined On</td>
+                    <td><?php echo $format->formatDate($value_user['joined']); ?></td>
+                  </tr>
+                  <tr>
+                    <td>Name</td>
+                    <td><?php echo $value_user['name']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Phone</td>
+                    <td><?php echo $value_user['phone']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Rank</td>
+                    <td><?php echo $value_user['rank']; ?></td>
+                  </tr>
+                  <tr>
+                    <td>Reference By</td>
+                    <td>
+                      <?php 
+                        $parent_member_id = $value_user['parent_member'];
+                        $parent_member_name = $db->select("SELECT name FROM mlm_members WHERE id = '$parent_member_id' LIMIT 1"); 
+                        if($parent_member_name){
+                          echo (mysqli_fetch_array($parent_member_name))['name'];
+                        }
+                      ?>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
             <div class="col-md-3">
               <div class="alert alert-info">
                 <span>Earn by Generation <?php echo $income['by_generation']; ?></span>
@@ -192,8 +240,7 @@
                 <span>Earn by Referance <?php echo $income['by_refer']; ?></span>
               </div>
             </div>
-          </div>
-          <?php } ?>
+          </div> -->
           <div class="row">
             <div class="col-lg-6 col-md-12">
               <div class="card">

@@ -59,3 +59,18 @@
   height: calc(100vh - 70px);
   margin-top: 70px;
 }
+
+/*my edirited*/
+
+.statprofile{
+  padding: 20px;
+    color: green;
+    text-align: center;
+    border: 5px solid green;
+    margin: 20px 0px;
+}
+
+.statprofile table tr td{
+  text-align: left;
+}
+
