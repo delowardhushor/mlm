@@ -107,6 +107,7 @@
 	      }
 
 	      $db->update("UPDATE mlm_income SET by_refer = by_refer+200 WHERE member = '$id' ");
+	      $db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Reference', 200) ");
 
 	      if($db->update($update_sql)){
 	      	calc_rank($id, $db);
@@ -127,6 +128,7 @@
             	$silver_id = $row_silver['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_silver WHERE member = '$silver_id' ");
             	$db->insert("INSERT INTO mlm_rank (sil) VALUES ('$add_silver')");
+            	$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$silver_id', 'Rank', '$add_silver') ");
             }
 		}
 		
@@ -142,6 +144,7 @@
             	$gold_id = $row_gold['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_gold WHERE member = '$gold_id' ");
             	$db->insert("INSERT INTO mlm_rank (gol) VALUES ('$add_gold')");
+            	$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$gold_id', 'Rank', '$add_gold') ");
             }
 		}
 
@@ -156,6 +159,7 @@
             	$platinum_id = $row_platinum['id'];
             	$db->update("UPDATE mlm_income SET by_rank = by_rank + $add_platinum WHERE member = '$platinum_id' ");
             	$db->insert("INSERT INTO mlm_rank (pla) VALUES ('$add_platinum')");
+            	$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$platinum_id', 'Rank', '$add_platinum') ");
             }
 		}
 
@@ -204,6 +208,8 @@
 
 			$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
 
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Generation', '$commission') ");
+
 			$db->update("UPDATE mlm_users SET gen_bal = gen_bal - '$commission' WHERE id = 1");
 
 		}
@@ -220,6 +226,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 500, got500 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 500 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 500) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 500 WHERE id = 1");
 				calc_board_1000($db);
@@ -235,6 +242,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 1000, got1000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 1000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 1000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 1000 WHERE id = 1");
 				calc_board_2000($db);
@@ -250,6 +258,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 2000, got2000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 2000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 2000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 2000 WHERE id = 1");
 				calc_board_3000($db);
@@ -265,6 +274,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 5000, got3000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 5000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 5000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 5000 WHERE id = 1");
 				calc_board_4000($db);
@@ -280,6 +290,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 10000, got4000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 10000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 10000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 10000 WHERE id = 1");
 				calc_board_5000($db);
@@ -295,6 +306,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 20000, got5000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 20000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 20000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 20000 WHERE id = 1");
 				calc_board_6000($db);
@@ -310,6 +322,7 @@
 		if(!is_float($id)){
 			$generation_sql = "UPDATE mlm_members SET balance = balance + 50000, got6000 = '1' WHERE id = '$id' ";
 			$db->update("UPDATE mlm_income SET by_board = by_board + 50000 WHERE member = '$id' ");
+			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 50000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 50000 WHERE id = 1");
 				header('Location:../member.php?success=Member Added');

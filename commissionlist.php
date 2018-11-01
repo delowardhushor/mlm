@@ -64,14 +64,14 @@
                           $sql = "SELECT * FROM mlm_comhis WHERE member = '$userid' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
                           $result = $db->select($sql);
                           if ($result && $result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
+                            while($row = $result->fetch_assoc()){
                         ?>
                         <tr>
                           <td>
                             <?php echo $format->formatDate($row['date']); ?>
                           </td>
                           <td >
-                            <?php echo $row['by']; ?>
+                            <?php echo $row['com_by']; ?>
                           </td>
                           <td class="text-primary">
                             <?php echo $row['amount']; ?>
