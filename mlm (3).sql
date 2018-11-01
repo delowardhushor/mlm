@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2018 at 06:24 AM
+-- Generation Time: Nov 01, 2018 at 12:49 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -42,6 +42,29 @@ CREATE TABLE `mlm_cashout` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mlm_comhis`
+--
+
+CREATE TABLE `mlm_comhis` (
+  `id` int(11) NOT NULL,
+  `member` int(11) NOT NULL,
+  `com_by` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `amount` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mlm_comhis`
+--
+
+INSERT INTO `mlm_comhis` (`id`, `member`, `com_by`, `date`, `amount`) VALUES
+(2, 2, 'board', '2018-11-01 05:21:30', 100),
+(3, 2, 'rank', '2018-11-01 05:32:28', 50),
+(4, 2, 'reference', '2018-11-01 05:49:30', 200);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mlm_income`
 --
 
@@ -59,7 +82,12 @@ CREATE TABLE `mlm_income` (
 --
 
 INSERT INTO `mlm_income` (`id`, `member`, `by_refer`, `by_generation`, `by_rank`, `by_board`) VALUES
-(2, 2, 0, 0, 0, 0);
+(2, 2, 1000, 0, 0, 0),
+(3, 3, 0, 0, 0, 0),
+(4, 4, 0, 0, 0, 0),
+(5, 5, 0, 0, 0, 0),
+(6, 6, 0, 0, 0, 0),
+(7, 7, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -96,7 +124,8 @@ CREATE TABLE `mlm_members` (
 --
 
 INSERT INTO `mlm_members` (`id`, `joined`, `name`, `phone`, `email`, `pass`, `package`, `balance`, `tan_bal`, `rank`, `cat`, `parent_member`, `referred`, `got500`, `got1000`, `got2000`, `got3000`, `got4000`, `got5000`, `got6000`, `got7000`) VALUES
-(2, '2018-10-27 03:36:27', 'Delowar', '13216315', 'delowar', 'a01610228fe998f515a72dd730294d87', 1, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(2, '2018-10-27 03:36:27', 'Delowar', '13216315', 'delowar', 'a01610228fe998f515a72dd730294d87', 1, 400, 4000, 'none', 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+(7, '2018-11-01 05:49:30', 'Hello', 'dsasdasdasd', 'hello', 'a01610228fe998f515a72dd730294d87', 1, 0, 0, 'none', 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -118,7 +147,7 @@ CREATE TABLE `mlm_packages` (
 --
 
 INSERT INTO `mlm_packages` (`id`, `name`, `price`, `stock`, `details`, `cost`) VALUES
-(1, 'Package A', '3000', 18, '', 1000);
+(1, 'Package A', '3000', 13, '', 1000);
 
 -- --------------------------------------------------------
 
@@ -157,7 +186,7 @@ CREATE TABLE `mlm_users` (
 --
 
 INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`, `gen_bal`, `board_bal`, `id_bal`, `account`, `vat`) VALUES
-(1, 'admin', 'cd92a26534dba48cd785cdcc0b3e6bd1', 150, 175, 300, 175, 3000, 0);
+(1, 'admin', 'cd92a26534dba48cd785cdcc0b3e6bd1', 150, 135, 300, 175, 8000, 0);
 
 --
 -- Indexes for dumped tables
@@ -167,6 +196,12 @@ INSERT INTO `mlm_users` (`id`, `email`, `pass`, `balance`, `gen_bal`, `board_bal
 -- Indexes for table `mlm_cashout`
 --
 ALTER TABLE `mlm_cashout`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mlm_comhis`
+--
+ALTER TABLE `mlm_comhis`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -210,16 +245,22 @@ ALTER TABLE `mlm_cashout`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `mlm_comhis`
+--
+ALTER TABLE `mlm_comhis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `mlm_income`
 --
 ALTER TABLE `mlm_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `mlm_members`
 --
 ALTER TABLE `mlm_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `mlm_packages`
