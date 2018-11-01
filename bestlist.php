@@ -126,17 +126,17 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <?php if($page > 1){ ?>
-                  <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page-1; if($search !== ''){echo '&search='.$search; } ?>">Previous</a></li>
+                  <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page-1; ?>">Previous</a></li>
                   <?php
                   } 
                   for($i = 1; $i <= $total_page; $i++){
                   ?>
-                  <li class="page-item "><a class="btn  <?php if($page==$i){echo 'btn-primary';}else{echo 'btn-default';} ?>" href="?page=<?php echo $i; if($search !== ''){echo '&search='.$search; } ?>"><?php echo $i; ?></a></li>
+                  <li class="page-item "><a class="btn  <?php if($page==$i){echo 'btn-primary';}else{echo 'btn-default';} ?>" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                   <?php 
                   } 
                   if($total_page > $page){
                   ?>
-                  <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page+1; if($search !== ''){echo '&search='.$search; } ?>">Next</a></li>
+                  <li class="page-item"><a class="btn btn-default" href="?page=<?php echo $page+1; ?>">Next</a></li>
                   <?php } ?>
                 </ul>
               </nav>

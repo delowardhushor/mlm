@@ -1,7 +1,7 @@
 <?php include "./inc/head.php"; ?>
 <?php
   if(session::get('usertype') !== 'member'){
-    header('Location:profile.php?error=You dont Have the Permission');
+    header('Location:dashboard.php');
   }
 
   $userid = session::get('userid');
@@ -19,7 +19,7 @@
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="card">
-                <div class="card-header card-header-success">
+                <div class="card-header card-header-primary">
                   <h4 class="card-title">List of Your Referance</h4>
                   <p class="card-category"></p>
                 </div>

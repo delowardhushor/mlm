@@ -91,6 +91,12 @@
               <p>Commission List</p>
             </a>
           </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'boardcommissionlist.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./boardcommissionlist.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Board Commission List</p>
+            </a>
+          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
             <a class="nav-link" href="member.php">
               <i class="material-icons">person_add</i>
