@@ -1,7 +1,7 @@
 <?php include "./inc/head.php"; ?>
 <?php 
   if(session::get('usertype') !== 'admin'){
-    header('Location:statistics.php');
+    header('Location:dashboard.php');
   }
 ?>
 <?php

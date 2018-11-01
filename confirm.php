@@ -24,7 +24,7 @@
   }
 
   if(!isset($_GET['approve']) || $_GET['approve'] == '' || !isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:statistics.php');
+    header('Location:dashboard.php');
   }else{
     $approve = $_GET['approve'];
     $mode = $_GET['mode'];

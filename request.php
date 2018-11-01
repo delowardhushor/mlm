@@ -5,7 +5,7 @@
   }
 
   if(!isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:statistics.php');
+    header('Location:dashboard.php');
   }else{
     $mode = $_GET['mode'];
   }

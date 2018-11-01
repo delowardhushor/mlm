@@ -34,10 +34,16 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'statistics.php'){echo 'active'; } ?>">
-            <a class="nav-link" href="statistics.php">
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'dashboard.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">bar_chart</i>
-              <p>Statistics</p>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'profile.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./profile.php">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
             </a>
           </li>
           <?php if(session::get('usertype') == 'admin'){ ?>
@@ -73,6 +79,18 @@
           </li>
           <?php } ?>
           <?php if(session::get('usertype') == 'member'){ ?>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'referencelist.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./referencelist.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Reference List</p>
+            </a>
+          </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'commissionlist.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./commissionlist.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Commission List</p>
+            </a>
+          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
             <a class="nav-link" href="member.php">
               <i class="material-icons">person_add</i>
@@ -92,12 +110,6 @@
             </a>
           </li>
           <?php }?>
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'profile.php'){echo 'active'; } ?>">
-            <a class="nav-link" href="./profile.php">
-              <i class="material-icons">person</i>
-              <p>Profile</p>
-            </a>
-          </li>
           <li class="nav-item ">
             <a class="nav-link" href="?logout">
               <i class="material-icons">logout</i>

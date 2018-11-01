@@ -43,11 +43,11 @@
   }
   
 
-  $sql_refer = "SELECT name FROM mlm_members WHERE parent_member = '$userid' ";
-  $result_refer = $db->select($sql_refer);
-  if($result_refer){
-    $total_refer = $result_refer->num_rows;
-  }
+  // $sql_refer = "SELECT name FROM mlm_members WHERE parent_member = '$userid' ";
+  // $result_refer = $db->select($sql_refer);
+  // if($result_refer){
+  //   $total_refer = $result_refer->num_rows;
+  // }
 
   $sql_latest = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT 10";
   $result_latest = $db->select($sql_latest);
@@ -318,7 +318,7 @@
                   </ul>
                 </nav>
               </div>
-            </div> -->
+            </div>
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-success">
@@ -329,8 +329,8 @@
                   <table class="table table-hover">
                     <thead class="text-warning">
                       <th>Name</th>
-                      <!-- <th>Balance</th>
-                      <th>Rank</th> -->
+                      <th>Balance</th>
+                      <th>Rank</th>
                     </thead>
                     <tbody>
                       <?php
@@ -339,15 +339,15 @@
                       ?>
                       <tr>
                         <td><?php echo $refer_member['name']; ?></td>
-                        <!-- <td><?php echo $refer_member['balance']; ?></td>
-                        <td><?php echo $refer_member['rank']; ?></td> -->
+                        <td><?php echo $refer_member['balance']; ?></td>
+                        <td><?php echo $refer_member['rank']; ?></td>
                       </tr>
                       <?php } } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <?php } ?>
           <?php if(session::get('usertype') == 'admin'){ ?>
