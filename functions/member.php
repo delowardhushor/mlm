@@ -205,6 +205,9 @@
 			}
 
 			$db->update("UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$id'");
+			$gen_level = sizeof($revese_id)-$generation;
+
+			$db->insert("INSERT INTO mlm_genhis (member, amount, gen) VALUES ('$id', '$commission', '$gen_level')");
 
 			$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
 

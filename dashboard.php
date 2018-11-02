@@ -43,11 +43,11 @@
   }
   
 
-  // $sql_refer = "SELECT name FROM mlm_members WHERE parent_member = '$userid' ";
-  // $result_refer = $db->select($sql_refer);
-  // if($result_refer){
-  //   $total_refer = $result_refer->num_rows;
-  // }
+  $sql_refer = "SELECT name FROM mlm_members WHERE parent_member = '$userid' ";
+  $result_refer = $db->select($sql_refer);
+  if($result_refer){
+    $total_refer = $result_refer->num_rows;
+  }
 
   $sql_latest = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT 10";
   $result_latest = $db->select($sql_latest);

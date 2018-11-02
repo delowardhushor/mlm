@@ -97,6 +97,18 @@
               <p>Board Commission List</p>
             </a>
           </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'generationlevel.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./generationlevel.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Generation Level</p>
+            </a>
+          </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'generationincome.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="./generationincome.php">
+              <i class="material-icons">bar_chart</i>
+              <p>Generation Income</p>
+            </a>
+          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'member.php'){echo 'active'; } ?>">
             <a class="nav-link" href="member.php">
               <i class="material-icons">person_add</i>
