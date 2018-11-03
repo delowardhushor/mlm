@@ -170,7 +170,7 @@
 		//print_r($value);
 		//calc_generation((mysqli_fetch_array($db->select("SELECT parent_member FROM mlm_members WHERE id = '$id' LIMIT 1")))['parent_member'], $db, 15);
 
-		get_gen_id($id, 0, [], $db);
+		get_gen_id($id, 1, [$id], $db);
 
 		
 	}
@@ -231,7 +231,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 500 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 500) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 500 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 500 WHERE id = 1");
 				calc_board_1000($db);
 			}
 		}
@@ -247,7 +247,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 1000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 1000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 1000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 1000 WHERE id = 1");
 				calc_board_2000($db);
 			}
 		}
@@ -263,7 +263,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 2000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 2000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 2000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 2000 WHERE id = 1");
 				calc_board_3000($db);
 			}
 		}	
@@ -279,7 +279,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 5000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 5000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 5000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 5000 WHERE id = 1");
 				calc_board_4000($db);
 			}
 		}
@@ -295,7 +295,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 10000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 10000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 10000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 10000 WHERE id = 1");
 				calc_board_5000($db);
 			}
 		}
@@ -311,7 +311,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 20000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 20000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 20000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 20000 WHERE id = 1");
 				calc_board_6000($db);
 			}
 		}
@@ -327,7 +327,7 @@
 			$db->update("UPDATE mlm_income SET by_board = by_board + 50000 WHERE member = '$id' ");
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 50000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
-				$db->update("UPDATE mlm_Users SET board_bal = board_bal - 50000 WHERE id = 1");
+				$db->update("UPDATE mlm_users SET board_bal = board_bal - 50000 WHERE id = 1");
 				header('Location:../member.php?success=Member Added');
 			}
 		}

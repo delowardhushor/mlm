@@ -36,7 +36,7 @@
                         <td><?php echo $i; ?></td>                     
                         <td><?php echo $gen_income_row['count(member)'];  ?></td>
                         
-                        <td>20</td>
+                        <td><?php if($i<=5){echo 20;}elseif($i<=10){echo 10;}else{echo 5;}?></td>
                         <td><?php echo $gen_income_row['sum(amount)']; ?></td>
                       </tr>
                       <?php } } ?>
