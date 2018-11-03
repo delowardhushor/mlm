@@ -19,12 +19,22 @@
     }
   }
 
-  if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get('usertype') == 'admin'){
+  if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_pass']) && session::get('usertype') == 'admin'){
       $pass = md5($_POST['pass']);
       if($db->Update("UPDATE mlm_members SET pass = '$pass' WHERE id = '$userid'")){
           header('Location:details.php?details='.$userid.'&success=Password Updated');
       }else{
         header('Location:details.php?details='.$userid.'&error=Password Not Updated');
+      }
+  }
+
+  if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_nam']) && session::get('usertype') == 'admin'){
+      $name = $_POST['name'];
+      $phone = $_POST['phone'];
+      if($db->Update("UPDATE mlm_members SET name = '$name', phone = '$phone' WHERE id = '$userid'")){
+          header('Location:details.php?details='.$userid.'&success=Updated');
+      }else{
+        header('Location:details.php?details='.$userid.'&error=Not Updated');
       }
   }
 
@@ -94,20 +104,39 @@
               <?php if(session::get('usertype') == 'admin'){ ?>
               <form action="" method="post">
                 <div class='row'>
-                  <div class="col-md-9">
+                  <div class="col-md-7">
                     <div class="form-group">
                       <label class="bmd-label-floating">Update Password</label>
                       <input type="password" required="1" name="pass" class="form-control">
                     </div>
                   </div>                 
-                  <div class="col-md-3">
-                    <button onclick="return confirm('Are You Sure Update This Password? It can not be undone!')" type="submit" class="btn btn-primary pull-right">Update</button>
+                  <div class="col-md-5">
+                    <input name="update_pass" onclick="return confirm('Are You Sure Update This Password? It can not be undone!')" type="submit" class="btn btn-primary pull-right" value="Update Password" />
                   </div>
                 </div>
               </form>
               <?php } ?>
             </div>
           </div>
+          <form action="" method="post">
+            <div class='row'>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Name</label>
+                  <input type="text" required="1" value="<?php echo $value_user['name']; ?>" name="name" class="form-control">
+                </div>
+              </div>  
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Mobile</label>
+                  <input type="text" required="1" value="<?php echo $value_user['phone']; ?>" name="phone" class="form-control">
+                </div>
+              </div>                 
+              <div class="col-md-4">
+                <input name="update_nam" type="submit" class="btn btn-primary pull-right" value="Update Name & Mobile" />
+              </div>
+            </div>
+          </form>
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
