@@ -120,6 +120,7 @@
                             <?php echo $row['rank']; ?>
                           </td>
                           <td>
+                            <a href="member.php?refer_person=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Refer</a>
                             <a href="details.php?details=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Details</a>
                             <a href="cash.php?mode=in&member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-success">Cash In History</a>
                             <a href="cash.php?mode=out&member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-primary  ">Cash Out History</a>

@@ -50,21 +50,34 @@
                   <form action="" method="post">
                   <div class='row'>             
                     <?php if(session::get('usertype') == 'member'){ ?>
-                      <div class="col-md-3">
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating">Cashout Amount</label>
                           <input type="text" required="1" name="amount" class="form-control">
                         </div>
                       </div>
                       <?php if($mode == 'in'){ ?>
-                      <div class="col-md-3">
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sent Mobile</label>
                           <input type="text" required="1" name="mobile_from" class="form-control">
                         </div>
                       </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <select required="1" class="form-control" name="pay_type" id="sel1">
+                                  <option>Select Payment Type</option>
+                                  <option  value="bikash">bikash</option>
+                                  <option  value="surecash">sure cash</option>
+                                  <option  value="rocket">rocket</option>
+                                  <option  value="bank">bank</option>
+                                  <option  value="hand">hand to hand</option>
+                            </select>
+                          </div>
+                        </div>
                       
-                      <div class="col-md-3">
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating">Transaction ID</label>
                           <input type="text" required="1" name="tan_id" class="form-control">
@@ -124,6 +137,9 @@
                           Sent To
                         </th>
                         <th>
+                          Patment By
+                        </th>
+                        <th>
                           Transaction ID
                         </th>
                         <th>
@@ -147,6 +163,9 @@
                           </td>
                           <td >
                             <?php echo $row['mobile_from']; ?>
+                          </td>
+                          <td >
+                            <?php echo $row['pay_type']; ?>
                           </td>
                           <td >
                             <?php echo $row['tan_id']; ?>

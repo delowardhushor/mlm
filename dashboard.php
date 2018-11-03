@@ -419,6 +419,42 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Member Total Balance</p>
+                  <?php $member_balance = mysqli_fetch_array($db->select("SELECT sum(balance),sum(tan_bal) FROM mlm_members"))?>
+                  <h3 class="card-title">৳ <?php echo $member_balance['sum(balance)']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Member Transferable Balance</p>
+                  <h3 class="card-title">৳ <?php echo $member_balance['sum(tan_bal)']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
           <div class="row">
             <div class="col-md-3">

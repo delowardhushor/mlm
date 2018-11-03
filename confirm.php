@@ -11,8 +11,9 @@
     $mobile_from = $_POST['mobile_from'];
     $tan_id = $_POST['tan_id'];
     $amount = $_POST['amount'];
+    $pay_type = $_POST['pay_type'];
 
-    $db->update("UPDATE mlm_cashout SET amount = '$amount', mobile_from = '$mobile_from', tan_id = '$tan_id' , approve = 'approved' WHERE id = '$id' ");
+    $db->update("UPDATE mlm_cashout SET amount = '$amount', mobile_from = '$mobile_from', tan_id = '$tan_id', $pay_type = '$pay_type' , approve = 'approved' WHERE id = '$id' ");
 
     if($mode == 'in'){
       $db->update("UPDATE mlm_members SET tan_bal = tan_bal + '$amount' WHERE id = '$member'");
@@ -51,6 +52,20 @@
                           <input type="text" name="mobile_from" value="<?php echo $request['mobile_from']; ?>" class="form-control">
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                            <select required="1" class="form-control" name="pay_type" id="sel1">
+                                  <option>Select Payment Type</option>
+                                  <option <?php if($request['pay_type'] == 'bikash'){echo 'selected';}?>  value="bikash">bikash</option>
+                                  <option <?php if($request['pay_type'] == 'surecash'){echo 'selected';}?> value="surecash">sure cash</option>
+                                  <option <?php if($request['pay_type'] == 'rocket'){echo 'selected';}?> value="rocket">rocket</option>
+                                  <option <?php if($request['pay_type'] == 'bank'){echo 'selected';}?> value="bank">bank</option>
+                                  <option <?php if($request['pay_type'] == 'hand'){echo 'selected';}?> value="hand">hand to hand</option>
+                            </select>
+                          </div>
+                        </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">

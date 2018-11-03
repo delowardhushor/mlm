@@ -1,4 +1,15 @@
 <?php include "./inc/head.php" ?>
+<?php 
+  if(session::get('usertype') != 'admin'){
+    $refer_person = session::get('userid');
+  }else{
+    if(isset($_GET['refer_person'])){
+      $refer_person = $_GET['refer_person'];
+    }else{
+      $refer_person = 0;
+    }
+  }
+?>
 <?php //include "./functions/member.php"; ?>
 <?php include "./inc/admin_header.php" ?>
       <div class="content">
@@ -45,26 +56,7 @@
                       </div>
                     </div>
                     <?php if(session::get('usertype') == 'admin'){ ?>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="sel1">Select Reference</label>
-                          <select class="form-control" name="parent_member" id="sel1">
-                            <?php 
-                              $member_sql = "SELECT * FROM mlm_members order by id asc";
-                              $member_result = $db->select($member_sql); 
-                              if ($member_result->num_rows > 0) {
-                                  while($member_row = $member_result->fetch_assoc()) {
-                              ?>
-                                <option  value="<?php echo $member_row["id"]; ?>"><?php echo  $member_row["name"]; ?></option>
-                            <?php
-                                }
-                              }
-                            ?>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    <input style="display: none;" name="parent_member" value="<?php echo $refer_person; ?>">
                     <?php }else{ ?>
                       <input type="text" style="display: none" name="parent_member" value="<?php echo session::get('userid'); ?>">
                     <?php } ?>

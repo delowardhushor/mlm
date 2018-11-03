@@ -1,22 +1,21 @@
 <?php include "./inc/head.php"; ?>
-<?php
+<?php 
   if(session::get('usertype') !== 'admin'){
-    header('Location:profile.php?error=You dont Have the Permission');
-  }
-
-  if(!isset($_GET['mode']) || $_GET['mode'] == '' ){
     header('Location:dashboard.php');
-  }else{
-    $mode = $_GET['mode'];
   }
-
-  if(isset($_GET['delete']) && session::get('usertype') == 'admin'){
-    $delete = $_GET['delete'];
-    if($db->delete("DELETE FROM mlm_cashout WHERE id = '$delete'")){
-      header('Location:request.php?mode='.$mode.'&success=Request Deleted');
+?>
+<?php 
+  if(isset($_GET['done']) && session::get('usertype') == 'admin'){
+    $id = $_GET['done'];
+    $package = mysqli_fetch_array($db->select("SELECT package FROM mlm_members WHERE id = '$id' LIMIT 1"))['package'];
+    if(
+      $db->update("UPDATE mlm_members SET package_pen = 1 WHERE id = '$id'")
+      &&
+      $db->update("UPDATE mlm_packages SET stock = stock-1 WHERE id = '$package'")
+    ){
+      header('Location:packagedelivery.php?success=Package Delivered');
     }
   }
-
 ?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
@@ -25,7 +24,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Cash <?php echo $mode; ?> Request</h4>
+                  <h4 class="card-title ">Member List</h4>
                   <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
                 <div class="card-body">
@@ -33,25 +32,25 @@
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          Date
+                          User ID
                         </th>
                         <th>
-                          Requested By
+                          Name
                         </th>
                         <th>
-                          From
+                          Username
                         </th>
                         <th>
-                          Payment By
+                          Earned Balance
                         </th>
                         <th>
-                          Transaction ID
+                          Transferable Balance
                         </th>
                         <th>
-                          Status
+                          Referred
                         </th>
                         <th>
-                          Amount
+                          Rank
                         </th>
                         <th>
                           Action
@@ -59,39 +58,35 @@
                       </thead>
                       <tbody>
                         <?php 
-                          $sql = "SELECT * FROM mlm_cashout WHERE approve = 'pending' AND mode = '$mode' ";
+                            $sql = "SELECT * FROM mlm_members WHERE package_pen = 0 ";
                           $result = $db->select($sql);
                           if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                         ?>
                         <tr>
                           <td>
-                            <?php echo $format->formatDate($row['date']); ?>
+                            <?php echo $row['id']; ?>
                           </td>
                           <td>
-                          <?php
-                            $member = $row['member'];
-                            echo mysqli_fetch_array($db->select("SELECT name FROM mlm_members WHERE id = '$member' "))['name'];
-                          ?>
+                            <?php echo $row['name']; ?>
                           </td>
-                          <td >
-                            <?php echo $row['mobile_from']; ?>
-                          </td>
-                          <td >
-                            <?php echo $row['pay_type']; ?>
-                          </td>
-                          <td >
-                            <?php echo $row['tan_id']; ?>
-                          </td>
-                          <td >
-                            <?php echo $row['approve']; ?>
+                          <td>
+                            <?php echo $row['email']; ?>
                           </td>
                           <td class="text-primary">
-                            <?php echo $row['amount']; ?>
+                            <?php echo $row['balance']; ?>
+                          </td>
+                          <td class="text-primary">
+                            <?php echo $row['tan_bal']; ?>
                           </td>
                           <td>
-                            <a href="confirm.php?mode=<?php echo $mode; ?>&approve=<?php echo $row['id']; ?>" class="btn btn-primary ">approve</a>
-                            <a onclick="return confirm('Delete This Request!')" href="request.php?mode=<?php echo $mode; ?>&delete=<?php echo $row['id']; ?>" class="btn btn-danger "><i class="material-icons">delete</i></a>
+                            <?php echo $row['referred']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['rank']; ?>
+                          </td>
+                          <td>
+                            <a href="packagedelivery.php?done=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Delivery Done</a>
                           </td>
                         </tr>
                         <?php

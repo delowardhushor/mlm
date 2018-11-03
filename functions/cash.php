@@ -7,7 +7,8 @@
 		if($mode == 'in'){
 			$mobile_from = $_POST['mobile_from'];
 			$tan_id = $_POST['tan_id'];
-			$req_sql = "INSERT INTO mlm_cashout (member, amount, mode, mobile_from, tan_id) VALUES ('$member', '$amount', '$mode', '$mobile_from', '$tan_id')";
+			$pay_type = $_POST['pay_type'];
+			$req_sql = "INSERT INTO mlm_cashout (member, amount, mode, mobile_from, tan_id, pay_type) VALUES ('$member', '$amount', '$mode', '$mobile_from', '$tan_id', '$pay_type')";
 		}
 		if($db->insert($req_sql))
 		{

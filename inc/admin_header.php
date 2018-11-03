@@ -77,6 +77,12 @@
               <p>Packages</p>
             </a>
           </li>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packagedelivery.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="packagedelivery.php">
+              <i class="material-icons">bubble_chart</i>
+              <p>Package Delivery</p>
+            </a>
+          </li>
           <?php } ?>
           <?php if(session::get('usertype') == 'member'){ ?>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'referencelist.php'){echo 'active'; } ?>">
