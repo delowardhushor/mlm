@@ -34,10 +34,20 @@
             <div class="col-md-12">
               <form>
                 <div class="row">
+                  <?php 
+                    $offset = ($page-1)*$perpage;
+                    if($search == ''){
+                      $sql = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
+                    }else{
+                      $sql = "SELECT * FROM mlm_members WHERE name LIKE '%$search%' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
+                    }
+                    $result = $db->select($sql);
+                    if ($result && $result->num_rows == 0) {
+                  ?>
                   <div class="col-md-6">
                     <a href="member.php?mode=Add" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Member</a>
                   </div>
-                  
+                  <?php } ?>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="bmd-label-floating">Search</label>
@@ -86,14 +96,7 @@
                         </th>
                       </thead>
                       <tbody>
-                        <?php 
-                          $offset = ($page-1)*$perpage;
-                          if($search == ''){
-                            $sql = "SELECT * FROM mlm_members ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
-                          }else{
-                            $sql = "SELECT * FROM mlm_members WHERE name LIKE '%$search%' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
-                          }
-                          $result = $db->select($sql);
+                        <?php
                           if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                         ?>

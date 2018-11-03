@@ -9,10 +9,16 @@
 			$tan_id = $_POST['tan_id'];
 			$pay_type = $_POST['pay_type'];
 			$req_sql = "INSERT INTO mlm_cashout (member, amount, mode, mobile_from, tan_id, pay_type) VALUES ('$member', '$amount', '$mode', '$mobile_from', '$tan_id', '$pay_type')";
-		}
-		if($db->insert($req_sql))
-		{
+			$db->insert($req_sql);
 			header('Location:cash.php?mode='.$mode.'&member='.$member.'&success=Request Sent');
+		}else{
+			$tan_bal = mysqli_fetch_array($db->select("SELECT tan_bal FROM mlm_members WHERE id = '$member'"))['tan_bal'];
+			if($tan_bal >= $amount){
+				$db->insert($req_sql);
+				header('Location:cash.php?mode='.$mode.'&member='.$member.'&success=Request Sent');
+			}else{
+				header('Location:cash.php?mode='.$mode.'&member='.$member.'&error=Not Enough Balance');
+			}
 		}
 	}
 

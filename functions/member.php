@@ -42,7 +42,7 @@
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
-				Header('Location:../member.php?success=Member Added');
+				Header('Location:../members.php?success=Member Added');
 
 			}else{
 				Header('Location:../member.php?error=Member Not Added');
@@ -62,7 +62,7 @@
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
-				Header('Location:../member.php?success=Member Added');
+				Header('Location:../members.php?success=Member Added');
 
 			}else{
 				Header('Location:../member.php?error=Member Not Added');
@@ -328,7 +328,7 @@
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 500000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_users SET board_bal = board_bal - 500000 WHERE id = 1");
-				header('Location:../member.php?success=Member Added');
+				header('Location:../members.php?success=Member Added');
 			}
 		}
 	}

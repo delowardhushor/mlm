@@ -56,7 +56,7 @@
                           <input type="text" required="1" name="amount" class="form-control">
                         </div>
                       </div>
-                      <?php if($mode == 'in'){ ?>
+                      <?php //if($mode == 'in'){ ?>
                       <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating">Sent Mobile</label>
@@ -83,7 +83,7 @@
                           <input type="text" required="1" name="tan_id" class="form-control">
                         </div>
                       </div>
-                      <?php }?>           
+                      <?php //}?>           
                       <div class="col-md-3">
                         <button onclick="return confirm('Are You Sure Cashout This Amount? It can not be undone!')" type="submit" name="cashRequest" class="btn btn-primary "><??>Sent Cash <?php echo $mode; ?> Request</button>
                       </div>

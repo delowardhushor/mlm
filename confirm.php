@@ -13,7 +13,7 @@
     $amount = $_POST['amount'];
     $pay_type = $_POST['pay_type'];
 
-    $db->update("UPDATE mlm_cashout SET amount = '$amount', mobile_from = '$mobile_from', tan_id = '$tan_id', $pay_type = '$pay_type' , approve = 'approved' WHERE id = '$id' ");
+    $db->update("UPDATE mlm_cashout SET amount = '$amount', mobile_from = '$mobile_from', tan_id = '$tan_id', pay_type = '$pay_type' , approve = 'approved' WHERE id = '$id' ");
 
     if($mode == 'in'){
       $db->update("UPDATE mlm_members SET tan_bal = tan_bal + '$amount' WHERE id = '$member'");
