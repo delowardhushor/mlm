@@ -23,25 +23,6 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <form>
-                <div class="row">
-                  <div class="col-md-6">
-                    <a href="member.php?mode=Add" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Member</a>
-                  </div>
-                  <!-- 
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Search</label>
-                      <input type="text" name="search" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary ">Search</button>
-                  </div> -->
-                </div>
-              </form>
-            </div>
-            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Best Member List</h4>
@@ -107,6 +88,7 @@
                             <?php echo $row['rank']; ?>
                           </td>
                           <td>
+                            <a href="member.php?refer_person=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Refer</a>
                             <a href="details.php?details=<?php echo $row['id']; ?>"  class="btn btn-sm btn-info ">Details</a>
                             <a href="cash.php?mode=in&member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-success">Cash In History</a>
                             <a href="cash.php?mode=out&member=<?php echo $row['id']; ?>"  class="btn btn-sm btn-primary  ">Cash Out History</a>
