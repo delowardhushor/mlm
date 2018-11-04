@@ -101,7 +101,7 @@
             </div>
           </div> -->
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -112,7 +112,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
@@ -123,7 +123,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
@@ -135,7 +135,7 @@
               </div>
             </div>
             
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -151,7 +151,7 @@
             $income = mysqli_fetch_array($db->select("SELECT * FROM mlm_income WHERE member = '$userid' "));
           ?>
           <div class="row">
-            <div class="col-md-6 col-sm-12 col-6">
+            <div class="col-md-6 col-sm-12 ">
               <div class="statprofile">
                 <table class="table table-hover">
                   <tr>
@@ -179,7 +179,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-6">
+            <div class="col-md-6 col-sm-12">
               <div class="statprofile">
                 <i style="font-size: 250px;" class="fa fa-user fa-5x"></i>
                 <table class="table table-hover">
@@ -220,22 +220,22 @@
             </div>
           </div>
           <!-- <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-info">
                 <span>Earn by Generation <?php echo $income['by_generation']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-primary">
                 <span>Earn by Rank <?php echo $income['by_rank']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-danger">
                 <span>Earn by Board Commission <?php echo $income['by_board']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-success">
                 <span>Earn by Referance <?php echo $income['by_refer']; ?></span>
               </div>
@@ -352,7 +352,7 @@
           <?php } ?>
           <?php if(session::get('usertype') == 'admin'){ ?>
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -369,7 +369,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -386,7 +386,7 @@
                 </div>
               </div>
             </div> -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -402,7 +402,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -419,7 +419,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -437,7 +437,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
@@ -457,22 +457,22 @@
             
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-info">
                 <span>Generation Balance <?php echo $value_user_bal['gen_bal']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-primary">
                 <span>Rank Balance <?php echo $value_user_bal['balance']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-danger">
                 <span>Board Commission Balance <?php echo $value_user_bal['board_bal']; ?></span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-12">
               <div class="alert alert-success">
                 <span>ID Card Balance <?php echo $value_user_bal['id_bal']; ?></span>
               </div>
