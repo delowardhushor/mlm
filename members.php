@@ -42,10 +42,10 @@
                       $sql = "SELECT * FROM mlm_members WHERE name LIKE '%$search%' ORDER BY id DESC LIMIT $perpage  OFFSET $offset";
                     }
                     $result = $db->select($sql);
-                    if ($result && $result->num_rows == 0) {
+                    if (!$result) {
                   ?>
                   <div class="col-md-6">
-                    <a href="member.php?mode=Add" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Member</a>
+                    <a href="member.php?refer_person=0" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Member</a>
                   </div>
                   <?php } ?>
                   <div class="col-md-4">

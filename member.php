@@ -3,10 +3,10 @@
   if(session::get('usertype') != 'admin'){
     $refer_person = session::get('userid');
   }else{
-    if(isset($_GET['refer_person'])){
-      $refer_person = $_GET['refer_person'];
+    if(!isset($_GET['refer_person']) || $_GET['refer_person'] == '' || $_GET['refer_person'] == null ){
+      header('Location:members.php');
     }else{
-      $refer_person = 0;
+      $refer_person = $_GET['refer_person'];
     }
   }
 ?>

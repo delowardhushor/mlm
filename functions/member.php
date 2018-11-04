@@ -29,7 +29,7 @@
 		if($usertype == 'admin'){
 			$sql = "INSERT INTO mlm_members (name, parent_member, email, pass, package, phone) VALUES ('$name', '$parent_member', '$email', '$pass', '$package', '$phone')";
 
-			$db->update("UPDATE mlm_users SET balance = balance + 150,  gen_bal = gen_bal + 175, board_bal = board_bal + 300, id_bal = id_bal + 175");
+			$db->update("UPDATE mlm_users SET balance = balance + 150,  gen_bal = gen_bal + 175, board_bal = board_bal + 300, id_bal = id_bal + 175 WHERE id = 1");
 
 			if ($db->insert($sql)) {
 
@@ -37,7 +37,7 @@
 
 				$db->insert("INSERT INTO mlm_income (member) VALUES ('$last_member')");
 
-				$package_income = $row_pak_price['price'] + $row_pak_price['cost'] - 1000;
+				$package_income = $row_pak_price['price'] - $row_pak_price['cost'] - 1000;
 				$db->update("UPDATE mlm_users SET account = account + '$package_income' WHERE id = 1");
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
@@ -58,7 +58,7 @@
 				$db->insert("INSERT INTO mlm_income (member) VALUES ('$last_member')");
 
 				$package_income = $row_pak_price['price'] - $row_pak_price['cost'] - 1000;
-				$db->update("UPDATE mlm_users SET account = account + '$package_income' WHERE id = 1");
+				$db->update("UPDATE mlm_users SET balance = balance + 150,  gen_bal = gen_bal + 175, board_bal = board_bal + 300, id_bal = id_bal + 175, account = account + '$package_income' WHERE id = 1");
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
