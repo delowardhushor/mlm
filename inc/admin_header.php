@@ -83,12 +83,6 @@
               <p>Cash Out History</p>
             </a>
           </li>
-          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
-            <a class="nav-link" href="packages.php">
-              <i class="material-icons">bubble_chart</i>
-              <p>Packages</p>
-            </a>
-          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packagedelivery.php'){echo 'active'; } ?>">
             <a class="nav-link" href="packagedelivery.php">
               <i class="material-icons">bubble_chart</i>
@@ -146,6 +140,12 @@
             </a>
           </li>
           <?php }?>
+          <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
+            <a class="nav-link" href="packages.php">
+              <i class="material-icons">bubble_chart</i>
+              <p>Packages</p>
+            </a>
+          </li>
           <li class="nav-item ">
             <a class="nav-link" href="?logout">
               <i class="material-icons">logout</i>

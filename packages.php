@@ -1,16 +1,13 @@
 <?php include "./inc/head.php"; ?>
-<?php
-  if(session::get('usertype') !== 'admin'){
-    header('Location:profile.php?error=You dont Have the Permission');
-  }
-?>
 <?php include "./inc/admin_header.php"; ?>
       <div class="content">
         <div class="container-fluid">
           <div class="row">
+            <?php if(session::get('usertype') == 'admin'){ ?>
             <div class="col-md-12">
               <a href="package.php?mode=Add" type="submit" class="btn btn-primary "><i class="material-icons">person_add</i>  Add Package</a>
             </div>
+            <?php } ?>
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -28,10 +25,11 @@
                           Price
                         </th>
                         <th>
-                          Stock
-                        </th>
-                        <th>
                           Details
+                        </th>
+                        <?php if(session::get('usertype') == 'admin'){ ?>
+                        <th>
+                          Stock
                         </th>
                         <th>
                           Package Cost
@@ -39,6 +37,7 @@
                         <th>
                           Action
                         </th>
+                        <?php } ?>
                       </thead>
                       <tbody>
                         <?php 
@@ -54,11 +53,12 @@
                           <td>
                             <?php echo $row['price']; ?>
                           </td>
-                          <td class="text-primary">
-                            <?php echo $row['stock']; ?>
-                          </td>
                           <td>
                             <?php echo $row['details']; ?>
+                          </td>
+                          <?php if(session::get('usertype') == 'admin'){ ?>
+                            <td class="text-primary">
+                            <?php echo $row['stock']; ?>
                           </td>
                           <td>
                             <?php echo $row['cost']; ?>
@@ -67,6 +67,7 @@
                             <a href="package.php?mode=Update&id=<?php echo $row['id']; ?>" class="btn btn-primary "><i class="material-icons">border_color</i></a>
                             <a onclick="return confirm('Delete This Package!')" href="package.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger "><i class="material-icons">delete</i></a>
                           </td>
+                          <?php } ?>
                         </tr>
                         <?php
                             }

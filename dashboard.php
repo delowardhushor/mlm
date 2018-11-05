@@ -262,9 +262,9 @@
                         $rank_commision = mysqli_fetch_array($db->select("SELECT sum(sil), sum(gol), sum(pla) FROM mlm_rank WHERE date BETWEEN '$end' AND '$start'"));
                       ?>
                       <tr>
-                        <td><?php echo $rank_commision['sum(sil)']; ?></td>
-                        <td><?php echo $rank_commision['sum(gol)']; ?></td>
-                        <td><?php echo $rank_commision['sum(pla)']; ?></td>
+                        <td><?php echo $rank_commision['sum(sil)']; ?> (<?php echo mysqli_fetch_array($db->select("SELECT count(id) FROM mlm_members WHERE rank = 'Silver'"))['count(id)']; ?> members)</td>
+                        <td><?php echo $rank_commision['sum(gol)']; ?> (<?php echo mysqli_fetch_array($db->select("SELECT count(id) FROM mlm_members WHERE rank = 'Gold'"))['count(id)']; ?> members)</td>
+                        <td><?php echo $rank_commision['sum(pla)']; ?> (<?php echo mysqli_fetch_array($db->select("SELECT count(id) FROM mlm_members WHERE rank = 'Platinum'"))['count(id)']; ?> members)</td>
                       </tr>
                     </tbody>
                   </table>
