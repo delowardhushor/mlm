@@ -454,6 +454,43 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Total Cash In So far</p>
+                  <h3 class="card-title">৳ <?php echo mysqli_fetch_array($db->select("SELECT sum(amount) FROM mlm_cashout WHERE mode = 'in' AND approve = 'approved' "))['sum(amount)']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">money</i>
+                  </div>
+                  <p class="card-category">Total Cash In So far</p>
+                  <h3 class="card-title">৳ <?php echo mysqli_fetch_array($db->select("SELECT sum(amount) FROM mlm_cashout WHERE mode = 'out' AND approve = 'approved' "))['sum(amount)']; ?></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">money</i>
+                    Add More Member to Get More...
+                  </div>
+                </div>
+              </div>
+            </div>
+
             
           </div>
           <div class="row">

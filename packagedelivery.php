@@ -24,13 +24,19 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Member List</h4>
+                  <h4 class="card-title ">Delivery Pending List</h4>
                   <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
+                        <th>
+                          Package Name
+                        </th>
+                        <th>
+                          Package Price
+                        </th>
                         <th>
                           User ID
                         </th>
@@ -64,6 +70,12 @@
                             while($row = $result->fetch_assoc()) {
                         ?>
                         <tr>
+                          <?php 
+                            $package = $row['package']; 
+                            $package_details = mysqli_fetch_array($db->select("SELECT name, price FROM mlm_packages WHERE id = '$package' "));
+                          ?>
+                          <td><?php echo $package_details['name']; ?></td>
+                          <td><?php echo $package_details['price']; ?></td>
                           <td>
                             <?php echo $row['id']; ?>
                           </td>
