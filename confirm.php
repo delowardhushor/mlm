@@ -18,7 +18,10 @@
     if($mode == 'in'){
       $db->update("UPDATE mlm_members SET tan_bal = tan_bal + '$amount' WHERE id = '$member'");
     }elseif($mode == 'out'){
-      $db->update("UPDATE mlm_members SET balance = balance - '$amount' WHERE id = '$member'");
+      $vated_amount = $amount*1.1;
+      $vat = $vated_amount - $amount;
+      $db->update("UPDATE mlm_members SET balance = balance - '$vated_amount' WHERE id = '$member'");
+      $db->update("UPDATE mlm_users SET vat = vat + '$vat' WHERE id = 1 ");
     }
 
     header("Location:members.php?success=Request Confirmed");

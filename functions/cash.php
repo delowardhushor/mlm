@@ -14,7 +14,7 @@
 			header('Location:cash.php?mode='.$mode.'&member='.$member.'&success=Request Sent');
 		}else{
 			$balance = mysqli_fetch_array($db->select("SELECT balance FROM mlm_members WHERE id = '$member'"))['balance'];
-			if($balance >= $amount){
+			if($balance >= $amount*1.1){
 				$db->insert($req_sql);
 				header('Location:cash.php?mode='.$mode.'&member='.$member.'&success=Request Sent');
 			}else{

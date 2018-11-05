@@ -71,6 +71,18 @@
               <p>Cash Out Request</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cashhistory.php?mode=in">
+              <i class="material-icons">money</i>
+              <p>Cash In History</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cashhistory.php?mode=out">
+              <i class="material-icons">money</i>
+              <p>Cash Out History</p>
+            </a>
+          </li>
           <li class="nav-item <?php if(basename($_SERVER['PHP_SELF']) == 'packages.php'){echo 'active'; } ?>">
             <a class="nav-link" href="packages.php">
               <i class="material-icons">bubble_chart</i>
