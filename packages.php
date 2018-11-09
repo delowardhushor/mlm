@@ -65,7 +65,7 @@
                           </td>
                           <td>
                             <a href="package.php?mode=Update&id=<?php echo $row['id']; ?>" class="btn btn-primary "><i class="material-icons">border_color</i></a>
-                            <a onclick="return confirm('Delete This Package!')" href="package.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger "><i class="material-icons">delete</i></a>
+                            <a onclick="return confirm('Delete This Package!')" href="package.php?mode=Add&delete=<?php echo $row['id']; ?>" class="btn btn-danger "><i class="material-icons">delete</i></a>
                           </td>
                           <?php } ?>
                         </tr>

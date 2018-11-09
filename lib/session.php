@@ -22,21 +22,21 @@
 			self::init();
 			if (self::get("login") == false) {
 				self::destroy();
-				header('Location: login.php');
+				echo "<script>window.location ='login.php';</script>";
 			}
 		}
 
 		public static function chk_login(){
 			self::init();
 			if (self::get("login") == true) {
-				header('Location: index.php');
+				echo "<script>window.location ='index.php';</script>";
 			}
 
 		}
 
 		public static function destroy(){
 			session_destroy();
-			header('Location: login.php');
+			echo "<script>window.location ='login.php';</script>";
 		}	
 
 

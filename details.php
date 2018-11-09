@@ -4,27 +4,27 @@
   if(isset($_GET['details']) && $_GET['details'] !== '' && session::get('usertype') == 'admin'){
     $userid = $_GET['details'];
   }else{
-    header('Location:members.php');
+    echo "<script>window.location ='members.php';</script>";
   }
 
   if(isset($_GET['asbest']) && session::get('usertype') == 'admin'){
     if($db->Update("UPDATE mlm_members SET cat = 1 WHERE id = '$userid'")){
-        header('Location:details.php?details='.$userid.'&success=Marked as Best');
+        echo "<script>window.location ='details.php?details=".$userid."&success=Marked as Best';</script>";
     }
   }
 
   if(isset($_GET['asnot']) && session::get('usertype') == 'admin'){
     if($db->Update("UPDATE mlm_members SET cat = 0 WHERE id = '$userid'")){
-        header('Location:details.php?details='.$userid.'&success=Remove from Best');
+        echo "<script>window.location ='details.php?details=".$userid."&success=Remove from Best';</script>";
     }
   }
 
   if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_pass']) && session::get('usertype') == 'admin'){
       $pass = md5($_POST['pass']);
       if($db->Update("UPDATE mlm_members SET pass = '$pass' WHERE id = '$userid'")){
-          header('Location:details.php?details='.$userid.'&success=Password Updated');
+        echo "<script>window.location ='details.php?details=".$userid."&success=Password Updated';</script>";
       }else{
-        header('Location:details.php?details='.$userid.'&error=Password Not Updated');
+        echo "<script>window.location ='details.php?details=".$userid."&error=Password Not Updated';</script>";
       }
   }
 
@@ -32,9 +32,9 @@
       $name = $_POST['name'];
       $phone = $_POST['phone'];
       if($db->Update("UPDATE mlm_members SET name = '$name', phone = '$phone' WHERE id = '$userid'")){
-          header('Location:details.php?details='.$userid.'&success=Updated');
+        echo "<script>window.location ='details.php?details=".$userid."&success=Updated';</script>";
       }else{
-        header('Location:details.php?details='.$userid.'&error=Not Updated');
+        echo "<script>window.location ='details.php?details=".$userid."&error=Not Updated';</script>";
       }
   }
 

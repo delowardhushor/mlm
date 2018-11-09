@@ -1,13 +1,13 @@
 <?php include "./inc/head.php"; ?>
 <?php 
   if(!isset($_GET['member']) || $_GET['member'] == '' || !isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }else{
     $member = $_GET['member'];
     $mode = $_GET['mode'];
   }
   if(session::get('usertype') !== 'admin' && session::get('userid') !== $member  ){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }
 ?>
 <?php

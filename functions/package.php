@@ -24,9 +24,12 @@
 		}
 		
 		if($result){
-			header('Location:packages.php?success=Package '.$mode);
+			//header('Location:packages.php?success=Package '.$mode);
+			echo "<script>window.location ='packages.php?success=Package ".$mode."';</script>";
+
 		}else{
-			header('Location:packages.php?error=Could Not '.$mode);
+			//header('Location:packages.php?error=Could Not '.$mode);
+			echo "<script>window.location ='packages.php?error=Could Not ".$mode."';</script>";
 		}
 	}
 
@@ -35,9 +38,12 @@
 		$sql = "DELETE FROM mlm_packages WHERE id = '$id' ";
 		$result = $db->delete($sql);
 		if($result){
-			header('Location:packages.php?success=Package Deleted');
+			//header('Location:packages.php?success=Package Deleted');
+			echo "<script>window.location ='packages.php?success=Package Deleted';</script>";
 		}else{
-			header('Location:packages.php?error=Could Not Delete');
+			//header('Location:packages.php?error=Could Not Delete');
+			echo "<script>window.location ='packages.php?error=Could Not Deleted';</script>";
+
 		}
 
 	}

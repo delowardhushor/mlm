@@ -1,11 +1,11 @@
 <?php include "./inc/head.php"; ?>
 <?php
   if(session::get('usertype') !== 'admin'){
-    header('Location:profile.php?error=You dont Have the Permission');
+    echo "<script>window.location ='dashboard.php';</script>";
   }
 
   if(!isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }else{
     $mode = $_GET['mode'];
   }
@@ -13,7 +13,8 @@
   if(isset($_GET['delete']) && session::get('usertype') == 'admin'){
     $delete = $_GET['delete'];
     if($db->delete("DELETE FROM mlm_cashout WHERE id = '$delete'")){
-      header('Location:request.php?mode='.$mode.'&success=Request Deleted');
+      //header('Location:request.php?mode='.$mode.'&success=Request Deleted');
+      echo "<script>window.location ='request.php?mode=".$mode."&success=Request Deleted';</script>";
     }
   }
 

@@ -1,7 +1,7 @@
 <?php include "./inc/head.php"; ?>
 <?php 
   if(session::get('usertype') != 'admin' || !isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }else{
     $mode = $_GET['mode'];
   }

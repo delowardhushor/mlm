@@ -1,7 +1,7 @@
 <?php include "./inc/head.php"; ?>
 <?php 
   if(session::get('usertype') !== 'admin'){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }
 ?>
 <?php 
@@ -13,7 +13,7 @@
       &&
       $db->update("UPDATE mlm_packages SET stock = stock-1 WHERE id = '$package'")
     ){
-      header('Location:packagedelivery.php?success=Package Delivered');
+      echo "<script>window.location ='packagedelivery.php?success=Package Delivered';</script>";
     }
   }
 ?>

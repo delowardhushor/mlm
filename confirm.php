@@ -1,7 +1,7 @@
 <?php include "./inc/head.php" ?>
 <?php
   if(session::get('usertype') !== 'admin'){
-    header('Location:profile.php?error=You dont Have the Permission');
+    echo "<script>window.location ='dashboard.php';</script>";
   }
 
   if($_SERVER['REQUEST_METHOD'] === 'POST' && session::get('usertype') == 'admin'){
@@ -24,11 +24,11 @@
       $db->update("UPDATE mlm_users SET vat = vat + '$vat' WHERE id = 1 ");
     }
 
-    header("Location:members.php?success=Request Confirmed");
+    echo "<script>window.location ='dashboard.php?success=Request Confirmed';</script>";
   }
 
   if(!isset($_GET['approve']) || $_GET['approve'] == '' || !isset($_GET['mode']) || $_GET['mode'] == '' ){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }else{
     $approve = $_GET['approve'];
     $mode = $_GET['mode'];

@@ -12,7 +12,8 @@
 
 		$chkUser = $db->select("SELECT count(*) FROM mlm_members WHERE email = '$email'");
 		if(mysqli_fetch_array($chkUser)['count(*)'] > 0){
-			Header('Location:../member.php?error=Username Exist');
+			//Header('Location:../member.php?error=Username Exist');
+			echo "<script>window.location ='../members.php?error=Username Exist';</script>";
 			die();
 		}
 
@@ -42,10 +43,12 @@
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
-				Header('Location:../members.php?success=Member Added');
+				//Header('Location:../members.php?success=Member Added');
+				echo "<script>window.location ='../members.php?success=Member Added';</script>";
 
 			}else{
-				Header('Location:../member.php?error=Member Not Added');
+				//Header('Location:../member.php?error=Member Not Added');
+				echo "<script>window.location ='../members.php?error=Member Not Added';</script>";
 			} 
 
 		}elseif($row_mem_bal['tan_bal'] >= $row_pak_price['price']){
@@ -62,13 +65,16 @@
 
 				update_parent($parent_member, $usertype, $package , $db->link->insert_id-1, $db);
 
-				Header('Location:../members.php?success=Member Added');
+				//Header('Location:../members.php?success=Member Added');
+				echo "<script>window.location ='../dashboard.php?success=Member Added';</script>";
 
 			}else{
-				Header('Location:../member.php?error=Member Not Added');
+				//Header('Location:../member.php?error=Member Not Added');
+				echo "<script>window.location ='../dashboard.php?error=Member Not Added';</script>";
 			} 
 		}else{
-			Header('Location:../member.php?error=You dont have Enough Balance');
+			//Header('Location:../member.php?error=You dont have Enough Balance');
+			echo "<script>window.location ='../dashboard.php?error=You dont Have Enough Balance';</script>";
 		}
 	}
 
@@ -328,7 +334,8 @@
 			$db->insert("INSERT INTO mlm_comhis (member, com_by, amount) VALUES ('$id', 'Board', 500000) ");
 			if ($db->update($generation_sql) && mysqli_affected_rows($db->link) > 0){
 				$db->update("UPDATE mlm_users SET board_bal = board_bal - 500000 WHERE id = 1");
-				header('Location:../members.php?success=Member Added');
+				//header('Location:../members.php?success=Member Added');
+				echo "<script>window.location ='../members.php?success=Member Added';</script>";
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <?php include "./inc/head.php"; ?>
 <?php
   if(session::get('usertype') !== 'member'){
-    header('Location:dashboard.php');
+    echo "<script>window.location ='dashboard.php';</script>";
   }
 
   $userid = session::get('userid');

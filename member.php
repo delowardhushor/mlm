@@ -4,7 +4,7 @@
     $refer_person = session::get('userid');
   }else{
     if(!isset($_GET['refer_person']) || $_GET['refer_person'] == '' || $_GET['refer_person'] == null ){
-      header('Location:members.php');
+      echo "<script>window.location ='members.php';</script>";
     }else{
       $refer_person = $_GET['refer_person'];
     }
