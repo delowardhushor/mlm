@@ -194,7 +194,8 @@
 	}
 
 	function cal_gen($gotten_id, $db){
-		$revese_id = array_reverse($gotten_id);
+		//$revese_id = array_reverse($gotten_id);
+		$revese_id = $gotten_id;
 
 		for($generation=0; $generation < count($revese_id); $generation++ ){
 			$id = $revese_id[$generation];
@@ -212,7 +213,7 @@
 				$db->update("UPDATE mlm_members SET balance = balance + '$commission' WHERE id = '$id'");
 				$gen_level = sizeof($revese_id)-$generation;
 
-				$db->insert("INSERT INTO mlm_genhis (member, amount, gen) VALUES ('$id', '$commission', '$gen_level')");
+				$db->insert("INSERT INTO mlm_genhis (member, amount, gen) VALUES ('$id', '$commission', $generation+1)");
 
 				$db->update("UPDATE mlm_income SET by_generation = by_generation + '$commission' WHERE member = '$id' ");
 
